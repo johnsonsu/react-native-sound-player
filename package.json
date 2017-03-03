@@ -1,0 +1,20 @@
+{
+	"name": "react-native-sound-player",
+	"version": "0.1.23",
+	"description": "Play audio file on iOS/Android",
+	"main": "index.js",
+	"keywords": [
+		"react-native",
+		"sound",
+		"player"
+	],
+  "repository": {
+    "type": "git",
+    "url": "http://appsdev.hcg.com.hk:7990/users/laam/react-native-sound-player"
+  },
+  "author": {
+		"name": "Johnson Su",
+		"email": "johnsonsu@johnsonsu.com"
+	},
+	"license": "MIT"
+}
