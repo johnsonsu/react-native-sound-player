@@ -12,7 +12,7 @@
 
 RCT_EXPORT_METHOD(playSoundFile:(NSString *)name, (NSString *)type)
 {
-  NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:name ofType:@"m4r"];
+  NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:name ofType:type];
   NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
   self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
   [self.player setNumberOfLoops:0];
