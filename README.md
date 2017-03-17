@@ -1,6 +1,6 @@
 # react-native-sound-player
 
-Play sound file in ReactNative on iOS and Android.
+Play audio files in ReactNative on iOS/Android.
 
 ## Installation
 
