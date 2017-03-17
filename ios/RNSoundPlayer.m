@@ -10,7 +10,7 @@
 
 @implementation RNSoundPlayer
 
-RCT_EXPORT_METHOD(playSoundFile:(NSString *)name :(NSString *)type)
+RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type)
 {
   NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:name ofType:type];
   NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
@@ -21,6 +21,5 @@ RCT_EXPORT_METHOD(playSoundFile:(NSString *)name :(NSString *)type)
 }
 
 RCT_EXPORT_MODULE();
-
 
 @end
