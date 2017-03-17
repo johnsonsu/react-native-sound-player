@@ -13,7 +13,7 @@ const { RNSoundPlayer } = NativeModules;
  */
 
 module.exports = {
-  playSound: (name: string) => {
+  playSoundFile: (name: string, type: string) => {
     RNSoundPlayer.playSoundFile(name, type);
   }
 };

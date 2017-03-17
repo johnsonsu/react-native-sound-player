@@ -15,14 +15,12 @@ Play sound file in ReactNative
 
 ### Play sound with file name and type
 
-    // import the library
     import SoundPlayer from 'react-native-sound-player';
 
-    //
     const fileName = 'tone';
     const fileType = 'mp3';
     try {
       SoundPlayer.playSound(fileName, fileType);
     } catch (e) {
-      console.log(`cannot play sound file ${fileName}.${fileType}`);
+      console.log(`cannot play sound file ${fileName}.${fileType}`, e);
     }
