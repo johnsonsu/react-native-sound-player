@@ -4,7 +4,7 @@
 	"description": "Play audio files in ReactNative on iOS/Android",
 	"main": "index.js",
 	"keywords": [
-		"reactnative"
+		"reactnative",
 		"react-native",
 		"sound",
 		"player"
