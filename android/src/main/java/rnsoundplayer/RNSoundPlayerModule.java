@@ -27,7 +27,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void playSoundFileWithNameOfType(String name, String type) throws IOException {
+  public void playSoundFile(String name, String type) throws IOException {
     if (this.mediaPlayer == null) {
       int soundResID = getReactApplicationContext().getResources().getIdentifier(name, "raw", getReactApplicationContext().getPackageName());
       this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), soundResID);
