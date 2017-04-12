@@ -3,17 +3,26 @@
  */
 'use strict';
 
-const { NativeModules } = require('react-native');
+const { NativeEventEmitter, NativeModules } = require('react-native');
 const { RNSoundPlayer } = NativeModules;
 
-/**
- * RNSoundPlayer is a simple library that allows
- * ReactNative Apps to play audio files on
- * iOS and Android platform.
- */
+const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer);
+let _finishedPlayingListener = null;
 
 module.exports = {
   playSoundFile: (name: string, type: string) => {
     RNSoundPlayer.playSoundFile(name, type);
+  },
+
+  onFinishedPlaying: (callback: (success: boolean) => any) => {
+    _finishedPlayingListener =  _soundPlayerEmitter.addListener(
+      'FinishedPlaying',
+      callback
+    )
+  },
+
+  unmount: () => {
+    _finishedPlayingListener && _finishedPlayingListener.remove();
   }
+
 };
