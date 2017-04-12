@@ -38,6 +38,37 @@ try {
 ```
 
 
+### Finished playing event
+
+```javascript
+...
+
+// subscribe to the finished playing event in componentDidMount
+componentDidMount() {
+  SoundPlayer.onFinishedPlaying((success: boolean) => { // success is true when the sound is played
+    console.log('finished playing', success);
+  });
+}
+
+// unsubscribe when unmount
+componentWillUnmount() {
+  SoundPlayer.unmount();
+}
+
+
+}
+
+...
+```
+
+
 ## Function
 
 ### playSound(fileName: string, fileType: string)
+Play the sound file named `fileName` with file type `fileType`.
+
+### onFinishedPlaying(callback: (success: boolean) => any)
+Subscribe to the "finished playing" event. The `callback` function is called ever a file is finished playing.
+
+### unmount()
+Unsubscribe the "finished playing" event.
