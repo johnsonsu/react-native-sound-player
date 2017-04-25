@@ -4,15 +4,20 @@ Play audio files in ReactNative on iOS/Android.
 
 ## Installation
 
-### yarn
+### 1. `yarn` or `npm`
 ```
+    // yarn
     yarn add react-native-sound-player
-```
-### npm
-
-```
+    // or npm
     npm install --save react-native-sound-player
 ```
+### 2. Link
+
+```
+    react-native link react-native-sound-player
+```
+
+
 ## Usage
 
 
