@@ -1,5 +1,4 @@
-
-package hk.com.hcg.rnsoundplayer;
+package rnsoundplayer;
 
 import java.util.Arrays;
 import java.util.Collections;
