@@ -3,7 +3,10 @@
  */
 'use strict';
 
-const { NativeEventEmitter, NativeModules } = require('react-native');
+import {
+  NativeModules,
+  NativeEventEmitter
+} from 'react-native';
 const { RNSoundPlayer } = NativeModules;
 
 const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer);
@@ -24,5 +27,4 @@ module.exports = {
   unmount: () => {
     _finishedPlayingListener && _finishedPlayingListener.remove();
   }
-
 };

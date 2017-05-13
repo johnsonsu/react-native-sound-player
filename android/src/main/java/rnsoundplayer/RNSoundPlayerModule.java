@@ -1,4 +1,4 @@
-package hk.com.hcg.rnsoundplayer;
+package rnsoundplayer;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
