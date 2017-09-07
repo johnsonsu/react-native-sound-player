@@ -26,7 +26,7 @@ Play audio files in ReactNative on iOS/Android.
 1. Add sound files to iOS/Android.
 
   - On iOS, drag and drop sound file into project in Xcode. Remember to check "Copy items if needed" option.
-  - On Android, put sound files in {project_root}/android/app/src/main/res/raw/. Just create the folder if it doesn't exist.
+  - On Android, put sound files in `{project_root}/android/app/src/main/res/raw/`. Just create the folder if it doesn't exist.
 
 
 2. Import the library and call the `playSoundFile(fileName, fileType)` function:
