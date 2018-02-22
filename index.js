@@ -24,7 +24,20 @@ module.exports = {
     )
   },
 
+  pause: () => {
+    RNSoundPlayer.pause()
+  },
+
+  resume: () => {
+    RNSoundPlayer.resume()
+  },
+
+  stop: () => {
+    RNSoundPlayer.stop()
+  },
+
   unmount: () => {
     _finishedPlayingListener && _finishedPlayingListener.remove();
   }
+
 };

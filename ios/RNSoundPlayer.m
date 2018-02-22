@@ -9,6 +9,7 @@
 
 @implementation RNSoundPlayer
 
+
 RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type) {
   NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:name ofType:type];
   NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
@@ -19,9 +20,26 @@ RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type) {
   [self.player play];
 }
 
-- (NSArray<NSString *> *)supportedEvents
-{
+- (NSArray<NSString *> *)supportedEvents {
   return @[@"FinishedPlaying"];
+}
+
+RCT_EXPORT_METHOD(pause) {
+  if (self.player != nil) {
+    [self.player pause];
+  }
+}
+
+RCT_EXPORT_METHOD(resume) {
+  if (self.player != nil) {
+    [self.player play];
+  }
+}
+
+RCT_EXPORT_METHOD(stop) {
+  if (self.player != nil) {
+    [self.player stop];
+  }
 }
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {

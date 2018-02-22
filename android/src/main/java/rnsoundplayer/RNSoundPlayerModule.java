@@ -55,6 +55,27 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
     this.mediaPlayer.start();
   }
 
+  @ReactMethod
+  public void pause() throws IllegalStateException {
+    if (this.mediaPlayer != null) {
+      this.mediaPlayer.pause();
+    }
+  }
+
+  @ReactMethod
+  public void resume() throws IllegalStateException {
+    if (this.mediaPlayer != null) {
+      this.mediaPlayer.start();
+    }
+  }
+
+  @ReactMethod
+  public void stop() throws IllegalStateException {
+    if (this.mediaPlayer != null){
+      this.mediaPlayer.stop();
+    }
+  }
+
   private void sendEvent(ReactApplicationContext reactContext,
                        String eventName,
                        @Nullable WritableMap params) {
