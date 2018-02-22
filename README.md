@@ -67,7 +67,7 @@ componentWillUnmount() {
 ```
 
 
-## Function
+## Functions
 
 ### playSound(fileName: string, fileType: string)
 Play the sound file named `fileName` with file type `fileType`.
