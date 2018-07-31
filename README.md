@@ -1,6 +1,6 @@
 # react-native-sound-player
 
-Play audio files in ReactNative on iOS/Android.
+Play audio files, stream audio from URL using ReactNative.
 
 ## Installation
 
@@ -32,13 +32,15 @@ Play audio files in ReactNative on iOS/Android.
 2. Import the library and call the `playSoundFile(fileName, fileType)` function:
 
 ```javascript
-import SoundPlayer from 'react-native-sound-player';
+import SoundPlayer from 'react-native-sound-player'
 
-// play the file tone.mp3
 try {
-  SoundPlayer.playSoundFile('tone', 'mp3');
+  // play the file tone.mp3
+  SoundPlayer.playSoundFile('tone', 'mp3')
+  // or play from url
+  SoundPlayer.playUrl('https://example.com/music.mp3')
 } catch (e) {
-  console.log(`cannot play the sound file`, e);
+  console.log(`cannot play the sound file`, e)
 }
 ```
 
@@ -51,13 +53,13 @@ try {
 // subscribe to the finished playing event in componentDidMount
 componentDidMount() {
   SoundPlayer.onFinishedPlaying((success: boolean) => { // success is true when the sound is played
-    console.log('finished playing', success);
-  });
+    console.log('finished playing', success)
+  })
 }
 
 // unsubscribe when unmount
 componentWillUnmount() {
-  SoundPlayer.unmount();
+  SoundPlayer.unmount()
 }
 
 
@@ -71,6 +73,11 @@ componentWillUnmount() {
 
 ### playSound(fileName: string, fileType: string)
 Play the sound file named `fileName` with file type `fileType`.
+
+### playUrl(url: string)
+Play the audio from url. Supported formats are:
+  - [AVPlayer (iOS)](https://stackoverflow.com/questions/21879981/avfoundation-avplayer-supported-formats-no-vob-or-mpg-containers)
+  - [MediaPlayer (Android)](https://developer.android.com/guide/topics/media/media-formats)
 
 ### onFinishedPlaying(callback: (success: boolean) => any)
 Subscribe to the "finished playing" event. The `callback` function is called ever a file is finished playing.

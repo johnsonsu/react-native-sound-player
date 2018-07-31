@@ -1,24 +1,25 @@
 /**
  * @flow
  */
-'use strict';
+'use strict'
 
-import {
-  NativeModules,
-  NativeEventEmitter
-} from 'react-native';
-const { RNSoundPlayer } = NativeModules;
+import { NativeModules, NativeEventEmitter } from 'react-native'
+const { RNSoundPlayer } = NativeModules
 
-const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer);
-let _finishedPlayingListener = null;
+const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer)
+let _finishedPlayingListener = null
 
 module.exports = {
   playSoundFile: (name: string, type: string) => {
-    RNSoundPlayer.playSoundFile(name, type);
+    RNSoundPlayer.playSoundFile(name, type)
+  },
+
+  playUrl: (url: string) => {
+    RNSoundPlayer.playUrl(url)
   },
 
   onFinishedPlaying: (callback: (success: boolean) => any) => {
-    _finishedPlayingListener =  _soundPlayerEmitter.addListener(
+    _finishedPlayingListener = _soundPlayerEmitter.addListener(
       'FinishedPlaying',
       callback
     )
@@ -37,7 +38,6 @@ module.exports = {
   },
 
   unmount: () => {
-    _finishedPlayingListener && _finishedPlayingListener.remove();
+    _finishedPlayingListener && _finishedPlayingListener.remove()
   }
-
-};
+}

@@ -56,6 +56,29 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void playUrl(String url) throws IOException {
+    if (this.mediaPlayer == null) {
+      Uri uri = Uri.parse(url);
+      this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), uri);
+      this.mediaPlayer.setOnCompletionListener(
+        new OnCompletionListener() {
+          @Override
+          public void onCompletion(MediaPlayer arg0) {
+            WritableMap params = Arguments.createMap();
+            params.putBoolean("success", true);
+            sendEvent(getReactApplicationContext(), "FinishedPlaying", params);
+          }
+      });
+    } else {
+      Uri uri = Uri.parse(url);
+      this.mediaPlayer.reset();
+      this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
+      this.mediaPlayer.prepare();
+    }
+    this.mediaPlayer.start();
+  }
+
+  @ReactMethod
   public void pause() throws IllegalStateException {
     if (this.mediaPlayer != null) {
       this.mediaPlayer.pause();

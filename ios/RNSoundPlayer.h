@@ -1,8 +1,7 @@
 //
 //  RNSoundPlayer
 //
-//  Created by Johnson Su on 2017-02-07.
-//  Copyright © 2017 Hsing Chong. All rights reserved.
+//  Created by Johnson Su on 2018-07-10.
 //
 
 #import <React/RCTBridgeModule.h>
@@ -11,4 +10,5 @@
 
 @interface RNSoundPlayer : RCTEventEmitter <RCTBridgeModule, AVAudioPlayerDelegate>
 @property (nonatomic, strong) AVAudioPlayer *player;
+@property (nonatomic, strong) AVPlayer *avPlayer;
 @end
