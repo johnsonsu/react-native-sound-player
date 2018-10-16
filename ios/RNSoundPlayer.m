@@ -25,7 +25,6 @@ RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type) {
     [self.player play];
 }
 
-
 - (NSArray<NSString *> *)supportedEvents {
     return @[@"FinishedPlaying"];
 }
@@ -54,6 +53,27 @@ RCT_EXPORT_METHOD(stop) {
     }
     if (self.avPlayer != nil) {
         [self.avPlayer pause];
+    }
+}
+
+RCT_REMAP_METHOD(getInfo,
+                 getInfoWithResolver:(RCTPromiseResolveBlock) resolve
+                 rejecter:(RCTPromiseRejectBlock) reject) {
+    if (self.player != nil) {
+        NSDictionary *data = @{
+                               @"currentTime": [NSNumber numberWithDouble:[self.player currentTime]],
+                               @"duration": [NSNumber numberWithDouble:[self.player duration]]
+                               };
+        resolve(data);
+    }
+    if (self.avPlayer != nil) {
+        CMTime currentTime = [[self.avPlayer currentItem] currentTime];
+        CMTime duration = [[[self.avPlayer currentItem] asset] duration];
+        NSDictionary *data = @{
+                               @"currentTime": [NSNumber numberWithFloat:CMTimeGetSeconds(currentTime)],
+                               @"duration": [NSNumber numberWithFloat:CMTimeGetSeconds(duration)]
+                               };
+        resolve(data);
     }
 }
 
