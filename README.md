@@ -1,6 +1,6 @@
 # react-native-sound-player
 
-Play audio files, stream audio from URL using ReactNative.
+Play audio files, stream audio from URL, using ReactNative.
 
 ## Installation
 
