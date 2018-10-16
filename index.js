@@ -37,6 +37,8 @@ module.exports = {
     RNSoundPlayer.stop()
   },
 
+  getInfo: async () => RNSoundPlayer.getInfo(),
+
   unmount: () => {
     _finishedPlayingListener && _finishedPlayingListener.remove()
   }
