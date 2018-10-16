@@ -15,6 +15,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 
 
 public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
@@ -97,6 +98,17 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
     if (this.mediaPlayer != null){
       this.mediaPlayer.stop();
     }
+  }
+
+  @ReactMethod
+  public void getInfo(
+      Promise promise) {
+    WritableMap map = Arguments.createMap();
+
+    map.putDouble("currentTime", this.mediaPlayer.getCurrentPosition() / 1000.0);
+    map.putDouble("duration", this.mediaPlayer.getDuration() / 1000.0);
+
+    promise.resolve(map);
   }
 
   private void sendEvent(ReactApplicationContext reactContext,
