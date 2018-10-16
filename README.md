@@ -82,6 +82,9 @@ Play the audio from url. Supported formats are:
 ### onFinishedPlaying(callback: (success: boolean) => any)
 Subscribe to the "finished playing" event. The `callback` function is called ever a file is finished playing.
 
+### unmount()
+Unsubscribe the "finished playing" event.
+
 ### pause()
 
 Pause the currently playing file.
@@ -94,5 +97,7 @@ Resume from pause and continue playing the same file.
 
 Stop playing, call `playSound(fileName: string, fileType: string)` to start playing again.
 
-### unmount()
-Unsubscribe the "finished playing" event.
+### getInfo() => Promise<{currentTime: number, duration: number}>
+
+Get the `currentTime` and `duration` of the currently playing audio media. This function returns a promise which resolves to an Object containing `currentTime` and `duration` properties.
+
