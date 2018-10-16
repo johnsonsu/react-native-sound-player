@@ -99,5 +99,33 @@ Stop playing, call `playSound(fileName: string, fileType: string)` to start play
 
 ### getInfo() => Promise<{currentTime: number, duration: number}>
 
-Get the `currentTime` and `duration` of the currently playing audio media. This function returns a promise which resolves to an Object containing `currentTime` and `duration` properties.
+Get the `currentTime` and `duration` of the currently mounted audio media. This function returns a promise which resolves to an Object containing `currentTime` and `duration` properties.
+```javascript
+// Example
+...
+  playSong() {
+    try {
+      SoundPlayer.playSoundFile('engagementParty', 'm4a')
+    } catch (e) {
+      alert('Cannot play the file')
+      console.log('cannot play the song file', e)
+    }
+  }
+
+  async getInfo() { // You need to keyword async
+    try {
+      const info = await SoundPlayer.getInfo() // Also, you need to await this because it is async
+      console.log('getInfo', info) // {duration: 12.416, currentTime: 7.691}
+    } catch (e) {
+      console.log('There is no song playing', e)
+    }
+  }
+
+  onPressPlayButton() {
+    this.playSong()
+    this.getInfo()
+  }
+
+...
+```
 
