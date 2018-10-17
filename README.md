@@ -112,7 +112,7 @@ Get the `currentTime` and `duration` of the currently mounted audio media. This 
     }
   }
 
-  async getInfo() { // You need to keyword async
+  async getInfo() { // You need the keyword `async`
     try {
       const info = await SoundPlayer.getInfo() // Also, you need to await this because it is async
       console.log('getInfo', info) // {duration: 12.416, currentTime: 7.691}
