@@ -1,4 +1,4 @@
-package rnsoundplayer;
+package com.johnsonsu.rnsoundplayer;
 
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
