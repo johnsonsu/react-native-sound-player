@@ -1,4 +1,4 @@
-package rnsoundplayer;
+package com.johnsonsu.rnsoundplayer;
 
 import java.util.Arrays;
 import java.util.Collections;
