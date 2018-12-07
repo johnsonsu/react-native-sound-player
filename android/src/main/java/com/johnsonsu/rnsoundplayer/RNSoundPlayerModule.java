@@ -53,6 +53,11 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
       this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
       this.mediaPlayer.prepare();
     }
+
+    WritableMap params = Arguments.createMap();
+    params.putBoolean("success", true);
+    sendEvent(getReactApplicationContext(), "FinishedLoading", params);
+
     this.mediaPlayer.start();
   }
 
@@ -76,6 +81,11 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
       this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
       this.mediaPlayer.prepare();
     }
+
+    WritableMap params = Arguments.createMap();
+    params.putBoolean("success", true);
+    sendEvent(getReactApplicationContext(), "FinishedLoading", params);
+
     this.mediaPlayer.start();
   }
 
