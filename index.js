@@ -20,6 +20,11 @@ module.exports = {
   },
 
   onFinishedPlaying: (callback: (success: boolean) => any) => {
+    if (_finishedPlayingListener) {
+      _finishedPlayingListener.remove();
+      _finishedPlayingListener = undefined;
+    }
+
     _finishedPlayingListener = _soundPlayerEmitter.addListener(
       "FinishedPlaying",
       callback
@@ -27,6 +32,11 @@ module.exports = {
   },
 
   onFinishedLoading: (callback: (success: boolean) => any) => {
+    if (_finishedLoadingListener) {
+      _finishedLoadingListener.remove();
+      _finishedLoadingListener = undefined;
+    }
+
     _finishedLoadingListener = _soundPlayerEmitter.addListener(
       "FinishedLoading",
       callback
@@ -48,7 +58,14 @@ module.exports = {
   getInfo: async () => RNSoundPlayer.getInfo(),
 
   unmount: () => {
-    _finishedPlayingListener && _finishedPlayingListener.remove();
-    _finishedLoadingListener && _finishedLoadingListener.remove();
+    if (_finishedPlayingListener) {
+      _finishedPlayingListener.remove();
+      _finishedPlayingListener = undefined;
+    }
+
+    if (_finishedLoadingListener) {
+      _finishedLoadingListener.remove();
+      _finishedLoadingListener = undefined;
+    }
   }
 };
