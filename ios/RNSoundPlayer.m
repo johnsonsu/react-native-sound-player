@@ -12,6 +12,8 @@ RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
     NSURL *soundURL = [NSURL URLWithString:url];
     self.avPlayer = [[AVPlayer alloc] initWithURL:soundURL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+
+    [self sendEventWithName:@"FinishedLoading" body:@{@"success": [NSNumber numberWithBool:true]}];
     [self.avPlayer play];
 }
 
@@ -22,11 +24,13 @@ RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type) {
     [self.player setDelegate:self];
     [self.player setNumberOfLoops:0];
     [self.player prepareToPlay];
+
+    [self sendEventWithName:@"FinishedLoading" body:@{@"success": [NSNumber numberWithBool:true]}];
     [self.player play];
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"FinishedPlaying"];
+    return @[@"FinishedPlaying", @"FinishedLoading"];
 }
 
 RCT_EXPORT_METHOD(pause) {
