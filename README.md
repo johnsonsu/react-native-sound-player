@@ -103,7 +103,7 @@ Unsubscribe the "finished playing" and "finished loading" event.
 
 ### play()
 
-Play the loaded sound file. This function is the same as `resume()`
+Play the loaded sound file. This function is the same as `resume()`.
 
 ### pause()
 
@@ -111,7 +111,7 @@ Pause the currently playing file.
 
 ### resume()
 
-Resume from pause and continue playing the same file. This function is the same as `play()`
+Resume from pause and continue playing the same file. This function is the same as `play()`.
 
 ### stop()
 
