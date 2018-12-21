@@ -45,7 +45,7 @@ try {
 ```
 
 
-### Finished playing event
+### Finished playing/loading event
 
 ```javascript
 ...
@@ -54,6 +54,11 @@ try {
 componentDidMount() {
   SoundPlayer.onFinishedPlaying((success: boolean) => { // success is true when the sound is played
     console.log('finished playing', success)
+  })
+  SoundPlayer.onFinishedLoading(async (success: boolean) => {
+    console.log('finished loading', success)
+    // ready to `play()`, `getInfo()`, etc
+    console.log(await SoundPlayer.getInfo())
   })
 }
 
@@ -74,16 +79,31 @@ componentWillUnmount() {
 ### playSound(fileName: string, fileType: string)
 Play the sound file named `fileName` with file type `fileType`.
 
+### loadSoundFile(fileName: string, fileType: string)
+Load the sound file named `fileName` with file type `fileType`, without playing it.
+This is useful when you want to play a large file, which can be slow to mount,
+and have precise control on when the sound is played. This can also be used in
+combination with `getInfo()` to get audio file `duration` without playing it.
+You should subscribe to the `onFinishedLoading` event to get notified when the
+file is loaded.
+
 ### playUrl(url: string)
 Play the audio from url. Supported formats are:
   - [AVPlayer (iOS)](https://stackoverflow.com/questions/21879981/avfoundation-avplayer-supported-formats-no-vob-or-mpg-containers)
   - [MediaPlayer (Android)](https://developer.android.com/guide/topics/media/media-formats)
 
 ### onFinishedPlaying(callback: (success: boolean) => any)
-Subscribe to the "finished playing" event. The `callback` function is called ever a file is finished playing.
+Subscribe to the "finished playing" event. The `callback` function is called whenever a file is finished playing.
+
+### onFinishedLoading(callback: (success: boolean) => any)
+Subscribe to the "finished loading" event. The `callback` function is called whenever a file is finished loading, i.e. the file is ready to be `play()`, `resume()`, `getInfo()`, etc.
 
 ### unmount()
-Unsubscribe the "finished playing" event.
+Unsubscribe the "finished playing" and "finished loading" event.
+
+### play()
+
+Play the loaded sound file. This function is the same as `resume()`
 
 ### pause()
 
@@ -91,7 +111,7 @@ Pause the currently playing file.
 
 ### resume()
 
-Resume from pause and continue playing the same file.
+Resume from pause and continue playing the same file. This function is the same as `play()`
 
 ### stop()
 
