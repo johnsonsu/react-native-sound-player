@@ -19,6 +19,10 @@ module.exports = {
     RNSoundPlayer.playUrl(url)
   },
 
+  mountSoundFile: (name: string, type: string) => {
+    RNSoundPlayer.mountSoundFile(name, type)
+  },
+
   onFinishedPlaying: (callback: (success: boolean) => any) => {
     if (_finishedPlayingListener) {
       _finishedPlayingListener.remove()
@@ -41,6 +45,11 @@ module.exports = {
       'FinishedLoading',
       callback
     )
+  },
+
+  play: () => {
+    // play and resume has the exact same implementation natively
+    RNSoundPlayer.resume()
   },
 
   pause: () => {
