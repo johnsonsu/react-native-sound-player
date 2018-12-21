@@ -5,29 +5,28 @@ Play audio files, stream audio from URL, using ReactNative.
 ## Installation
 
 ### 1. `yarn` or `npm`
+
 ```
     // yarn
     yarn add react-native-sound-player
     // or npm
     npm install --save react-native-sound-player
 ```
+
 ### 2. Link
 
 ```
     react-native link react-native-sound-player
 ```
 
-
 ## Usage
-
 
 ### Play sound with file name and type
 
 1. Add sound files to iOS/Android.
 
-  - On iOS, drag and drop sound file into project in Xcode. Remember to check **"Copy items if needed"** option and **"Add to targets"**.
-  - On Android, put sound files in `{project_root}/android/app/src/main/res/raw/`. Just create the folder if it doesn't exist.
-
+-   On iOS, drag and drop sound file into project in Xcode. Remember to check **"Copy items if needed"** option and **"Add to targets"**.
+-   On Android, put sound files in `{project_root}/android/app/src/main/res/raw/`. Just create the folder if it doesn't exist.
 
 2. Import the library and call the `playSoundFile(fileName, fileType)` function:
 
@@ -35,15 +34,18 @@ Play audio files, stream audio from URL, using ReactNative.
 import SoundPlayer from 'react-native-sound-player'
 
 try {
-  // play the file tone.mp3
-  SoundPlayer.playSoundFile('tone', 'mp3')
-  // or play from url
-  SoundPlayer.playUrl('https://example.com/music.mp3')
+    // play the file tone.mp3
+    SoundPlayer.playSoundFile('tone', 'mp3')
+    // or play from url
+    SoundPlayer.playUrl('https://example.com/music.mp3')
 } catch (e) {
-  console.log(`cannot play the sound file`, e)
+    console.log(`cannot play the sound file`, e)
 }
 ```
 
+> Please note that the device can still go to sleep (screen goes off) while audio is playing.
+> When this happens, the audio will stop playing.
+> To prevent this, you can something like [react-native-keep-awake](https://github.com/corbt/react-native-keep-awake).
 
 ### Finished playing/loading event
 
@@ -73,13 +75,14 @@ componentWillUnmount() {
 ...
 ```
 
-
 ## Functions
 
 ### playSound(fileName: string, fileType: string)
+
 Play the sound file named `fileName` with file type `fileType`.
 
 ### loadSoundFile(fileName: string, fileType: string)
+
 Load the sound file named `fileName` with file type `fileType`, without playing it.
 This is useful when you want to play a large file, which can be slow to mount,
 and have precise control on when the sound is played. This can also be used in
@@ -88,17 +91,22 @@ You should subscribe to the `onFinishedLoading` event to get notified when the
 file is loaded.
 
 ### playUrl(url: string)
+
 Play the audio from url. Supported formats are:
-  - [AVPlayer (iOS)](https://stackoverflow.com/questions/21879981/avfoundation-avplayer-supported-formats-no-vob-or-mpg-containers)
-  - [MediaPlayer (Android)](https://developer.android.com/guide/topics/media/media-formats)
+
+-   [AVPlayer (iOS)](https://stackoverflow.com/questions/21879981/avfoundation-avplayer-supported-formats-no-vob-or-mpg-containers)
+-   [MediaPlayer (Android)](https://developer.android.com/guide/topics/media/media-formats)
 
 ### onFinishedPlaying(callback: (success: boolean) => any)
+
 Subscribe to the "finished playing" event. The `callback` function is called whenever a file is finished playing.
 
 ### onFinishedLoading(callback: (success: boolean) => any)
+
 Subscribe to the "finished loading" event. The `callback` function is called whenever a file is finished loading, i.e. the file is ready to be `play()`, `resume()`, `getInfo()`, etc.
 
 ### unmount()
+
 Unsubscribe the "finished playing" and "finished loading" event.
 
 ### play()
@@ -120,6 +128,7 @@ Stop playing, call `playSound(fileName: string, fileType: string)` to start play
 ### getInfo() => Promise<{currentTime: number, duration: number}>
 
 Get the `currentTime` and `duration` of the currently mounted audio media. This function returns a promise which resolves to an Object containing `currentTime` and `duration` properties.
+
 ```javascript
 // Example
 ...
@@ -148,4 +157,3 @@ Get the `currentTime` and `duration` of the currently mounted audio media. This 
 
 ...
 ```
-
