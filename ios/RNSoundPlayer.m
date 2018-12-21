@@ -12,6 +12,9 @@ static NSString *const EVENT_FINISHED_LOADING = @"FinishedLoading";
 static NSString *const EVENT_FINISHED_PLAYING = @"FinishedPlaying";
 
 RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
+    if (self.player) {
+        self.player = nil;
+    }
     NSURL *soundURL = [NSURL URLWithString:url];
     self.avPlayer = [[AVPlayer alloc] initWithURL:soundURL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
@@ -21,13 +24,13 @@ RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
 }
 
 RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type) {
-    [self mount:name ofType:type];
+    [self mountSoundFile:name ofType:type];
     [self.player play];
 }
 
 
-RCT_EXPORT_METHOD(mountSoundFile:(NSString *)name ofType:(NSString *)type) {
-    [self mount:name ofType:type];
+RCT_EXPORT_METHOD(loadSoundFile:(NSString *)name ofType:(NSString *)type) {
+    [self mountSoundFile:name ofType:type];
 }
 
 
@@ -92,7 +95,10 @@ RCT_REMAP_METHOD(getInfo,
     [self sendEventWithName:EVENT_FINISHED_PLAYING body:@{@"success": [NSNumber numberWithBool:TRUE]}];
 }
 
-- (void) mount:(NSString *)name ofType:(NSString *)type {
+- (void) mountSoundFile:(NSString *)name ofType:(NSString *)type {
+    if (self.avPlayer) {
+        self.avPlayer = nil;
+    }
     NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:name ofType:type];
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];

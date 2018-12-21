@@ -19,8 +19,8 @@ module.exports = {
     RNSoundPlayer.playUrl(url)
   },
 
-  mountSoundFile: (name: string, type: string) => {
-    RNSoundPlayer.mountSoundFile(name, type)
+  loadSoundFile: (name: string, type: string) => {
+    RNSoundPlayer.loadSoundFile(name, type)
   },
 
   onFinishedPlaying: (callback: (success: boolean) => any) => {

@@ -38,13 +38,13 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void playSoundFile(String name, String type) throws IOException {
-    mount(name, type);
+    mountSoundFile(name, type);
     this.mediaPlayer.start();
   }
 
   @ReactMethod
-  public void mountSoundFile(String name, String type) throws IOException {
-    mount(name, type);
+  public void loadSoundFile(String name, String type) throws IOException {
+    mountSoundFile(name, type);
   }
 
   @ReactMethod
@@ -111,7 +111,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
         .emit(eventName, params);
   }
 
-  private void mount(String name, String type) throws IOException {
+  private void mountSoundFile(String name, String type) throws IOException {
     if (this.mediaPlayer == null) {
       int soundResID = getReactApplicationContext().getResources().getIdentifier(name, "raw", getReactApplicationContext().getPackageName());
       this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), soundResID);
