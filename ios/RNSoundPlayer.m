@@ -99,7 +99,16 @@ RCT_REMAP_METHOD(getInfo,
     if (self.avPlayer) {
         self.avPlayer = nil;
     }
+
     NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:name ofType:type];
+
+    if (soundFilePath == nil) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+
+        soundFilePath = [NSString stringWithFormat:@"%@.%@", [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",name]], type];
+    }
+
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
     [self.player setDelegate:self];
