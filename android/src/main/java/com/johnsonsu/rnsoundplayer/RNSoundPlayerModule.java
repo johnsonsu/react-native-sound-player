@@ -119,20 +119,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
       if (soundResID > 0) {
         this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), soundResID);
       } else {
-        String folder = getReactApplicationContext().getFilesDir().getAbsolutePath();
-        String file = name + "." + type;
-
-        // http://blog.weston-fl.com/android-mediaplayer-prepare-throws-status0x1-error1-2147483648
-        // this helps avoid a common error state when mounting the file
-        File ref = new File(folder + "/" + file);
-
-        if (ref.exists()) {
-          ref.setReadable(true, false);
-        }
-
-        Uri uri = Uri.parse("file://" + folder + "/" + file);
-
-        this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), uri);
+        this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), this.getUriFromFile(name, type));
       }
 
       this.mediaPlayer.setOnCompletionListener(
@@ -146,24 +133,12 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
       });
     } else {
       Uri uri;
-
       int soundResID = getReactApplicationContext().getResources().getIdentifier(name, "raw", getReactApplicationContext().getPackageName());
 
       if (soundResID > 0) {
         uri = Uri.parse("android.resource://" + getReactApplicationContext().getPackageName() + "/raw/" + name);
       } else {
-        String folder = getReactApplicationContext().getFilesDir().getAbsolutePath();
-        String file = name + "." + type;
-
-        // http://blog.weston-fl.com/android-mediaplayer-prepare-throws-status0x1-error1-2147483648
-        // this helps avoid a common error state when mounting the file
-        File ref = new File(folder + "/" + file);
-
-        if (ref.exists()) {
-          ref.setReadable(true, false);
-        }
-
-        uri = Uri.parse("file://" + folder + "/" + file);
+        uri = this.getUriFromFile(name, type);
       }
 
       this.mediaPlayer.reset();
@@ -174,5 +149,20 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
     WritableMap params = Arguments.createMap();
     params.putBoolean("success", true);
     sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING, params);
+  }
+
+  private Uri getUriFromFile(String name, String type) {
+    String folder = getReactApplicationContext().getFilesDir().getAbsolutePath();
+    String file = name + "." + type;
+
+    // http://blog.weston-fl.com/android-mediaplayer-prepare-throws-status0x1-error1-2147483648
+    // this helps avoid a common error state when mounting the file
+    File ref = new File(folder + "/" + file);
+
+    if (ref.exists()) {
+      ref.setReadable(true, false);
+    }
+
+    return Uri.parse("file://" + folder + "/" + file);
   }
 }
