@@ -3,6 +3,7 @@ package com.johnsonsu.rnsoundplayer;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
+import java.io.File;
 
 import java.io.IOException;
 import javax.annotation.Nullable;
@@ -114,7 +115,13 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   private void mountSoundFile(String name, String type) throws IOException {
     if (this.mediaPlayer == null) {
       int soundResID = getReactApplicationContext().getResources().getIdentifier(name, "raw", getReactApplicationContext().getPackageName());
-      this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), soundResID);
+
+      if (soundResID > 0) {
+        this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), soundResID);
+      } else {
+        this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), this.getUriFromFile(name, type));
+      }
+
       this.mediaPlayer.setOnCompletionListener(
         new OnCompletionListener() {
           @Override
@@ -125,13 +132,37 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
           }
       });
     } else {
-      Uri uri = Uri.parse("android.resource://" + getReactApplicationContext().getPackageName() + "/raw/" + name);
+      Uri uri;
+      int soundResID = getReactApplicationContext().getResources().getIdentifier(name, "raw", getReactApplicationContext().getPackageName());
+
+      if (soundResID > 0) {
+        uri = Uri.parse("android.resource://" + getReactApplicationContext().getPackageName() + "/raw/" + name);
+      } else {
+        uri = this.getUriFromFile(name, type);
+      }
+
       this.mediaPlayer.reset();
       this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
       this.mediaPlayer.prepare();
     }
+
     WritableMap params = Arguments.createMap();
     params.putBoolean("success", true);
     sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING, params);
+  }
+
+  private Uri getUriFromFile(String name, String type) {
+    String folder = getReactApplicationContext().getFilesDir().getAbsolutePath();
+    String file = name + "." + type;
+
+    // http://blog.weston-fl.com/android-mediaplayer-prepare-throws-status0x1-error1-2147483648
+    // this helps avoid a common error state when mounting the file
+    File ref = new File(folder + "/" + file);
+
+    if (ref.exists()) {
+      ref.setReadable(true, false);
+    }
+
+    return Uri.parse("file://" + folder + "/" + file);
   }
 }
