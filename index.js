@@ -63,6 +63,10 @@ module.exports = {
   stop: () => {
     RNSoundPlayer.stop()
   },
+  
+  setVolume: (volume: number) => {
+    RNSoundPlayer.setVolume(volume)
+  },
 
   getInfo: async () => RNSoundPlayer.getInfo(),
 

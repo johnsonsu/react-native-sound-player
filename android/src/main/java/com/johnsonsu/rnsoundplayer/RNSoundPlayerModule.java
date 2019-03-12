@@ -90,8 +90,15 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void stop() throws IllegalStateException {
-    if (this.mediaPlayer != null){
+    if (this.mediaPlayer != null) {
       this.mediaPlayer.stop();
+    }
+  }
+
+  @ReactMethod
+  public void setVolume(float volume) throws IOException {
+    if (this.mediaPlayer != null) {
+      this.mediaPlayer.setVolume(volume, volume);
     }
   }
 

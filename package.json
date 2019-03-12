@@ -1,6 +1,6 @@
 {
 	"name": "react-native-sound-player",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"description": "Play or stream audio files in ReactNative on iOS/Android",
 	"main": "index.js",
 	"keywords": [
