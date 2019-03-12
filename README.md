@@ -125,6 +125,10 @@ Resume from pause and continue playing the same file. This function is the same 
 
 Stop playing, call `playSound(fileName: string, fileType: string)` to start playing again.
 
+### setVolume(volume: number)
+
+Set the volume of the current player. This does not change the volume of the device.
+
 ### getInfo() => Promise<{currentTime: number, duration: number}>
 
 Get the `currentTime` and `duration` of the currently mounted audio media. This function returns a promise which resolves to an Object containing `currentTime` and `duration` properties.
