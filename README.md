@@ -69,9 +69,6 @@ componentWillUnmount() {
   SoundPlayer.unmount()
 }
 
-
-}
-
 ...
 ```
 
@@ -99,15 +96,60 @@ Play the audio from url. Supported formats are:
 
 ### onFinishedPlaying(callback: (success: boolean) => any)
 
-Subscribe to the "finished playing" event. The `callback` function is called whenever a file is finished playing.
+Subscribe to the "finished playing" event. The `callback` function is called whenever a file is finished playing. **This function will be deprecated soon, please use `addEventListener` below**.
 
 ### onFinishedLoading(callback: (success: boolean) => any)
 
-Subscribe to the "finished loading" event. The `callback` function is called whenever a file is finished loading, i.e. the file is ready to be `play()`, `resume()`, `getInfo()`, etc.
+Subscribe to the "finished loading" event. The `callback` function is called whenever a file is finished loading, i.e. the file is ready to be `play()`, `resume()`, `getInfo()`, etc. **This function will be deprecated soon, please use `addEventListener` below**.
+
+### addEventListener(callback: (object: CallBackResult) => Subscription)
+
+Subscribe to any event. Returns a subscription object. Subscriptions created by this function cannot be removed by calling `unmount()`. You **NEED** to call `yourSubscriptionObject.remove()` when you no longer need this event listener or whenever your component unmounts.
+
+Supported events are:
+1.`FinishedLoading`
+2.`FinishedPlaying`
+3.`FinishedLoadingURL`
+4.`FinishedLoadingFile`
+
+```javascript
+  // Example
+  ...
+  // Create instance variable(s) to store your subscriptions in your class
+  _onFinishedPlayingSubscription = null
+  _onFinishedLoadingSubscription = null
+  _onFinishedLoadingFileSubscription = null
+  _onFinishedLoadingURLSubscription = null
+
+  // Subscribe to event(s) you want when component mounted
+  componentDidMount() {
+    _onFinishedPlayingSubscription = SoundPlayer.addEventListener('FinishedPlyaing', ({ success }) => {
+      console.log('finished playing', success)
+    })
+    _onFinishedLoadingSubscription = SoundPlayer.addEventListener('FinishedLoading', ({ success }) => {
+      console.log('finished loading', success)
+    })
+    _onFinishedLoadingFileSubscription = SoundPlayer.addEventListener('FinishedLoadingFile', ({ success, name, type }) => {
+      console.log('finished loading file', success, name, type)
+    })
+    _onFinishedLoadingURLSubscription = SoundPlayer.addEventListener('FinishedLoadingURL', ({ success, url }) => {
+      console.log('finished loading url', success, url)
+    })
+  }
+
+  // Remove all the subscriptions when component will unmount
+  componentWillUnmount() {
+    _onFinishedPlayingSubscription.remove()
+    _onFinishedLoadingSubscription.remove()
+    _onFinishedLoadingURLSubscription.remove()
+    _onFinishedLoadingFileSubscription.remove()
+  }
+  ...
+```
 
 ### unmount()
 
-Unsubscribe the "finished playing" and "finished loading" event.
+Unsubscribe the "finished playing" and "finished loading" event. **This function will be deprecated soon, please use `addEventListener` and remove your own listener by calling `yourSubscriptionObject.remove()`**.
 
 ### play()
 
