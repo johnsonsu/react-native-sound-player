@@ -9,6 +9,8 @@
 @implementation RNSoundPlayer
 
 static NSString *const EVENT_FINISHED_LOADING = @"FinishedLoading";
+static NSString *const EVENT_FINISHED_LOADING_FILE = @"FinishedLoadingFile";
+static NSString *const EVENT_FINISHED_LOADING_URL = @"FinishedLoadingURL";
 static NSString *const EVENT_FINISHED_PLAYING = @"FinishedPlaying";
 
 RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
@@ -20,6 +22,7 @@ RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 
     [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:true]}];
+    [self sendEventWithName:EVENT_FINISHED_LOADING_URL body: @{@"success": [NSNumber numberWithBool:true], @"url": url}];
     [self.avPlayer play];
 }
 
@@ -35,7 +38,7 @@ RCT_EXPORT_METHOD(loadSoundFile:(NSString *)name ofType:(NSString *)type) {
 
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[EVENT_FINISHED_PLAYING, EVENT_FINISHED_LOADING];
+    return @[EVENT_FINISHED_PLAYING, EVENT_FINISHED_LOADING, EVENT_FINISHED_LOADING_URL, EVENT_FINISHED_LOADING_FILE];
 }
 
 
@@ -114,7 +117,6 @@ RCT_REMAP_METHOD(getInfo,
     if (soundFilePath == nil) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
-
         soundFilePath = [NSString stringWithFormat:@"%@.%@", [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",name]], type];
     }
 
@@ -124,6 +126,7 @@ RCT_REMAP_METHOD(getInfo,
     [self.player setNumberOfLoops:0];
     [self.player prepareToPlay];
     [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:true]}];
+    [self sendEventWithName:EVENT_FINISHED_LOADING_FILE body:@{@"success": [NSNumber numberWithBool:true], @"name": name, @"type": type}];
 }
 
 
