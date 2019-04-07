@@ -102,15 +102,16 @@ Subscribe to the "finished playing" event. The `callback` function is called whe
 
 Subscribe to the "finished loading" event. The `callback` function is called whenever a file is finished loading, i.e. the file is ready to be `play()`, `resume()`, `getInfo()`, etc. **This function will be deprecated soon, please use `addEventListener` below**.
 
-### addEventListener(callback: (object: CallBackResult) => Subscription)
+### addEventListener(callback: (object: ResultObject) => SubscriptionObject)
 
 Subscribe to any event. Returns a subscription object. Subscriptions created by this function cannot be removed by calling `unmount()`. You **NEED** to call `yourSubscriptionObject.remove()` when you no longer need this event listener or whenever your component unmounts.
 
 Supported events are:
-1.`FinishedLoading`
-2.`FinishedPlaying`
-3.`FinishedLoadingURL`
-4.`FinishedLoadingFile`
+
+1. `FinishedLoading`
+2. `FinishedPlaying`
+3. `FinishedLoadingURL`
+4. `FinishedLoadingFile`
 
 ```javascript
   // Example
