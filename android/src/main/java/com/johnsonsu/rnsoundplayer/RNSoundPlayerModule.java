@@ -23,6 +23,8 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
 
   public final static String EVENT_FINISHED_PLAYING = "FinishedPlaying";
   public final static String EVENT_FINISHED_LOADING = "FinishedLoading";
+  public final static String EVENT_FINISHED_LOADING_FILE = "FinishedLoadingFile";
+  public final static String EVENT_FINISHED_LOADING_URL = "FinishedLoadingURL";
 
   private final ReactApplicationContext reactContext;
   private MediaPlayer mediaPlayer;
@@ -71,6 +73,10 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
     WritableMap params = Arguments.createMap();
     params.putBoolean("success", true);
     sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING, params);
+    WritableMap onFinshedLoadingURLParams = Arguments.createMap();
+    onFinshedLoadingURLParams.putBoolean("success", true);
+    onFinshedLoadingURLParams.putString("url", url);
+    sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING_URL, onFinshedLoadingURLParams);
     this.mediaPlayer.start();
   }
 
@@ -156,6 +162,11 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
     WritableMap params = Arguments.createMap();
     params.putBoolean("success", true);
     sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING, params);
+    WritableMap onFinishedLoadingFileParams = Arguments.createMap();
+    onFinishedLoadingFileParams.putBoolean("success", true);
+    onFinishedLoadingFileParams.putString("name", name);
+    onFinishedLoadingFileParams.putString("type", type);
+    sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING_FILE, onFinishedLoadingFileParams);
   }
 
   private Uri getUriFromFile(String name, String type) {

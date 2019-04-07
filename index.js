@@ -47,6 +47,8 @@ module.exports = {
     )
   },
 
+  addEventListener: (eventName: 'FinishedLoading' | 'FinishedPlaying' | 'FinishedLoadingURL' | 'FinishedLoadingFile', callback: Function) => _soundPlayerEmitter.addListener(eventName, callback),
+
   play: () => {
     // play and resume has the exact same implementation natively
     RNSoundPlayer.resume()
@@ -63,7 +65,7 @@ module.exports = {
   stop: () => {
     RNSoundPlayer.stop()
   },
-  
+
   setVolume: (volume: number) => {
     RNSoundPlayer.setVolume(volume)
   },
