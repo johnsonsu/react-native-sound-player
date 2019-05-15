@@ -168,6 +168,12 @@ Resume from pause and continue playing the same file. This function is the same 
 
 Stop playing, call `playSound(fileName: string, fileType: string)` to start playing again.
 
+### setSpeakerPhone(flag: boolean) <-- new!
+
+Activate bottom speaker for ios.
+
+you can expect to more loud sound for playUrl() 
+
 ### setVolume(volume: number)
 
 Set the volume of the current player. This does not change the volume of the device.
