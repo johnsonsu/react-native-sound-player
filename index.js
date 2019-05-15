@@ -3,7 +3,7 @@
  */
 'use strict'
 
-import { NativeModules, NativeEventEmitter } from 'react-native'
+import { NativeModules, NativeEventEmitter, Platform } from 'react-native'
 const { RNSoundPlayer } = NativeModules
 
 const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer)
@@ -11,14 +11,7 @@ let _finishedPlayingListener = null
 let _finishedLoadingListener = null
 
 module.exports = {
-  setSpeakerPhone: (flag: boolean) => {
-    if(Platform.OS === "android"){
-      console.log("setSpeakerPhone has not implement in android");
-    } else {
-      RNSoundPlayer.setSpeakerPhone(flag);
-    }
-  },
-  
+
   playSoundFile: (name: string, type: string) => {
     RNSoundPlayer.playSoundFile(name, type)
   },
@@ -76,6 +69,14 @@ module.exports = {
 
   setVolume: (volume: number) => {
     RNSoundPlayer.setVolume(volume)
+  },
+
+  setSpeaker: (on: boolean) => {
+    if(Platform.OS === "android"){
+      console.log("setSpeaker is not implement on Android");
+    } else {
+      RNSoundPlayer.setSpeaker(on);
+    }
   },
 
   getInfo: async () => RNSoundPlayer.getInfo(),
