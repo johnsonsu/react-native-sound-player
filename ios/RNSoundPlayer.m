@@ -13,6 +13,18 @@ static NSString *const EVENT_FINISHED_LOADING_FILE = @"FinishedLoadingFile";
 static NSString *const EVENT_FINISHED_LOADING_URL = @"FinishedLoadingURL";
 static NSString *const EVENT_FINISHED_PLAYING = @"FinishedPlaying";
 
+RCT_EXPORT_METHOD(setSpeakerPhone:(BOOL) on) {
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    if (on) {
+        [session setCategory: AVAudioSessionCategoryPlayAndRecord error: nil];
+        [session overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    } else {
+        [session setCategory: AVAudioSessionCategoryPlayback error: nil];
+        [session overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];
+    }
+    [session setActive:true error:nil];
+}
+
 RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
     if (self.player) {
         self.player = nil;
