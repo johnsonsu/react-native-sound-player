@@ -11,6 +11,14 @@ let _finishedPlayingListener = null
 let _finishedLoadingListener = null
 
 module.exports = {
+  setSpeakerPhone: (flag: boolean) => {
+    if(Platform.OS === "android"){
+      console.log("setSpeakerPhone has not implement in android");
+    } else {
+      RNSoundPlayer.setSpeakerPhone(flag);
+    }
+  },
+  
   playSoundFile: (name: string, type: string) => {
     RNSoundPlayer.playSoundFile(name, type)
   },
