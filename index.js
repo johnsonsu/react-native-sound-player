@@ -66,6 +66,10 @@ module.exports = {
   stop: () => {
     RNSoundPlayer.stop()
   },
+  
+  seek: (seconds) => {
+    RNSoundPlayer.seek(seconds)
+  },
 
   setVolume: (volume: number) => {
     RNSoundPlayer.setVolume(volume)
