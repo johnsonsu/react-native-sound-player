@@ -45,7 +45,7 @@ try {
 
 > Please note that the device can still go to sleep (screen goes off) while audio is playing.
 > When this happens, the audio will stop playing.
-> To prevent this, you can something like [react-native-keep-awake](https://github.com/corbt/react-native-keep-awake).
+> To prevent this, you can use something like [react-native-keep-awake](https://github.com/corbt/react-native-keep-awake).
 
 ### Finished playing/loading event
 
