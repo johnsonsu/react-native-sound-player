@@ -168,6 +168,10 @@ Resume from pause and continue playing the same file. This function is the same 
 
 Stop playing, call `playSound(fileName: string, fileType: string)` to start playing again.
 
+### seek(seconds: number)
+
+Seek to `seconds` of the currently playing file.
+
 ### setSpeaker(on: boolean)
 
 Only available on iOS. Overwrite default audio output to speaker, which forces `playUrl()` function to play from speaker.
