@@ -47,31 +47,6 @@ try {
 > When this happens, the audio will stop playing.
 > To prevent this, you can use something like [react-native-keep-awake](https://github.com/corbt/react-native-keep-awake).
 
-### Finished playing/loading event
-
-```javascript
-...
-
-// subscribe to the finished playing event in componentDidMount
-componentDidMount() {
-  SoundPlayer.onFinishedPlaying((success: boolean) => { // success is true when the sound is played
-    console.log('finished playing', success)
-  })
-  SoundPlayer.onFinishedLoading(async (success: boolean) => {
-    console.log('finished loading', success)
-    // ready to `play()`, `getInfo()`, etc
-    console.log(await SoundPlayer.getInfo())
-  })
-}
-
-// unsubscribe when unmount
-componentWillUnmount() {
-  SoundPlayer.unmount()
-}
-
-...
-```
-
 ## Functions
 
 ### `playSound(fileName: string, fileType: string)`
@@ -93,14 +68,6 @@ Play the audio from url. Supported formats are:
 
 -   [AVPlayer (iOS)](https://stackoverflow.com/questions/21879981/avfoundation-avplayer-supported-formats-no-vob-or-mpg-containers)
 -   [MediaPlayer (Android)](https://developer.android.com/guide/topics/media/media-formats)
-
-### `onFinishedPlaying(callback: (success: boolean) => any)`
-
-Subscribe to the "finished playing" event. The `callback` function is called whenever a file is finished playing. **This function will be deprecated soon, please use `addEventListener` below**.
-
-### `onFinishedLoading(callback: (success: boolean) => any)`
-
-Subscribe to the "finished loading" event. The `callback` function is called whenever a file is finished loading, i.e. the file is ready to be `play()`, `resume()`, `getInfo()`, etc. **This function will be deprecated soon, please use `addEventListener` below**.
 
 ### `addEventListener(callback: (object: ResultObject) => SubscriptionObject)`
 
@@ -147,6 +114,14 @@ Supported events are:
   }
   ...
 ```
+
+### `onFinishedPlaying(callback: (success: boolean) => any)`
+
+Subscribe to the "finished playing" event. The `callback` function is called whenever a file is finished playing. **This function will be deprecated soon, please use `addEventListener` above**.
+
+### `onFinishedLoading(callback: (success: boolean) => any)`
+
+Subscribe to the "finished loading" event. The `callback` function is called whenever a file is finished loading, i.e. the file is ready to be `play()`, `resume()`, `getInfo()`, etc. **This function will be deprecated soon, please use `addEventListener` above**.
 
 ### `unmount()`
 
