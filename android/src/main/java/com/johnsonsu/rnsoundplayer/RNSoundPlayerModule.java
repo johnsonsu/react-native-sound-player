@@ -100,6 +100,13 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
       this.mediaPlayer.stop();
     }
   }
+  
+  @ReactMethod
+  public void seek(float seconds) throws IllegalStateException {
+    if (this.mediaPlayer != null) {
+      this.mediaPlayer.seekTo((int)seconds * 1000);
+    }
+  }
 
   @ReactMethod
   public void setVolume(float volume) throws IOException {

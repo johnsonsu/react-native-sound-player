@@ -70,6 +70,15 @@ RCT_EXPORT_METHOD(stop) {
     }
 }
 
+RCT_EXPORT_METHOD(seek:(float)seconds) {
+    if (self.player != nil) {
+        self.player.currentTime = seconds;
+    }
+    if (self.avPlayer != nil) {
+        [self.avPlayer seekToTime: CMTimeMakeWithSeconds(seconds, 1.0)];
+    }
+}
+
 RCT_EXPORT_METHOD(setSpeaker:(BOOL) on) {
     AVAudioSession *session = [AVAudioSession sharedInstance];
     if (on) {
