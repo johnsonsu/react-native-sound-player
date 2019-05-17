@@ -74,11 +74,11 @@ componentWillUnmount() {
 
 ## Functions
 
-### playSound(fileName: string, fileType: string)
+### `playSound(fileName: string, fileType: string)`
 
 Play the sound file named `fileName` with file type `fileType`.
 
-### loadSoundFile(fileName: string, fileType: string)
+### `loadSoundFile(fileName: string, fileType: string)`
 
 Load the sound file named `fileName` with file type `fileType`, without playing it.
 This is useful when you want to play a large file, which can be slow to mount,
@@ -87,22 +87,22 @@ combination with `getInfo()` to get audio file `duration` without playing it.
 You should subscribe to the `onFinishedLoading` event to get notified when the
 file is loaded.
 
-### playUrl(url: string)
+### `playUrl(url: string)`
 
 Play the audio from url. Supported formats are:
 
 -   [AVPlayer (iOS)](https://stackoverflow.com/questions/21879981/avfoundation-avplayer-supported-formats-no-vob-or-mpg-containers)
 -   [MediaPlayer (Android)](https://developer.android.com/guide/topics/media/media-formats)
 
-### onFinishedPlaying(callback: (success: boolean) => any)
+### `onFinishedPlaying(callback: (success: boolean) => any)`
 
 Subscribe to the "finished playing" event. The `callback` function is called whenever a file is finished playing. **This function will be deprecated soon, please use `addEventListener` below**.
 
-### onFinishedLoading(callback: (success: boolean) => any)
+### `onFinishedLoading(callback: (success: boolean) => any)`
 
 Subscribe to the "finished loading" event. The `callback` function is called whenever a file is finished loading, i.e. the file is ready to be `play()`, `resume()`, `getInfo()`, etc. **This function will be deprecated soon, please use `addEventListener` below**.
 
-### addEventListener(callback: (object: ResultObject) => SubscriptionObject)
+### `addEventListener(callback: (object: ResultObject) => SubscriptionObject)`
 
 Subscribe to any event. Returns a subscription object. Subscriptions created by this function cannot be removed by calling `unmount()`. You **NEED** to call `yourSubscriptionObject.remove()` when you no longer need this event listener or whenever your component unmounts.
 
@@ -148,39 +148,39 @@ Supported events are:
   ...
 ```
 
-### unmount()
+### `unmount()`
 
 Unsubscribe the "finished playing" and "finished loading" event. **This function will be deprecated soon, please use `addEventListener` and remove your own listener by calling `yourSubscriptionObject.remove()`**.
 
-### play()
+### `play()`
 
 Play the loaded sound file. This function is the same as `resume()`.
 
-### pause()
+### `pause()`
 
 Pause the currently playing file.
 
-### resume()
+### `resume()`
 
 Resume from pause and continue playing the same file. This function is the same as `play()`.
 
-### stop()
+### `stop()`
 
 Stop playing, call `playSound(fileName: string, fileType: string)` to start playing again.
 
-### seek(seconds: number)
+### `seek(seconds: number)`
 
 Seek to `seconds` of the currently playing file.
 
-### setSpeaker(on: boolean)
+### `setSpeaker(on: boolean)`
 
 Only available on iOS. Overwrite default audio output to speaker, which forces `playUrl()` function to play from speaker.
 
-### setVolume(volume: number)
+### `setVolume(volume: number)`
 
 Set the volume of the current player. This does not change the volume of the device.
 
-### getInfo() => Promise<{currentTime: number, duration: number}>
+### `getInfo() => Promise<{currentTime: number, duration: number}>`
 
 Get the `currentTime` and `duration` of the currently mounted audio media. This function returns a promise which resolves to an Object containing `currentTime` and `duration` properties.
 
