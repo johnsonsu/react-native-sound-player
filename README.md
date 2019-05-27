@@ -49,7 +49,7 @@ try {
 
 ## Functions
 
-### `playSound(fileName: string, fileType: string)`
+### `playSoundFile(fileName: string, fileType: string)`
 
 Play the sound file named `fileName` with file type `fileType`.
 
@@ -91,7 +91,7 @@ Supported events are:
 
   // Subscribe to event(s) you want when component mounted
   componentDidMount() {
-    _onFinishedPlayingSubscription = SoundPlayer.addEventListener('FinishedPlyaing', ({ success }) => {
+    _onFinishedPlayingSubscription = SoundPlayer.addEventListener('FinishedPlaying', ({ success }) => {
       console.log('finished playing', success)
     })
     _onFinishedLoadingSubscription = SoundPlayer.addEventListener('FinishedLoading', ({ success }) => {
