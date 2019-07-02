@@ -16,12 +16,16 @@ module.exports = {
     RNSoundPlayer.playSoundFile(name, type)
   },
 
+  loadSoundFile: (name: string, type: string) => {
+    RNSoundPlayer.loadSoundFile(name, type)
+  },
+
   playUrl: (url: string) => {
     RNSoundPlayer.playUrl(url)
   },
 
-  loadSoundFile: (name: string, type: string) => {
-    RNSoundPlayer.loadSoundFile(name, type)
+  loadUrl: (url: string) => {
+    RNSoundPlayer.loadUrl(url)
   },
 
   onFinishedPlaying: (callback: (success: boolean) => any) => {
@@ -66,7 +70,7 @@ module.exports = {
   stop: () => {
     RNSoundPlayer.stop()
   },
-  
+
   seek: (seconds) => {
     RNSoundPlayer.seek(seconds)
   },

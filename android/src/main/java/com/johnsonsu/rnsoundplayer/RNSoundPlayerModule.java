@@ -52,32 +52,13 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void playUrl(String url) throws IOException {
-    if (this.mediaPlayer == null) {
-      Uri uri = Uri.parse(url);
-      this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), uri);
-      this.mediaPlayer.setOnCompletionListener(
-        new OnCompletionListener() {
-          @Override
-          public void onCompletion(MediaPlayer arg0) {
-            WritableMap params = Arguments.createMap();
-            params.putBoolean("success", true);
-            sendEvent(getReactApplicationContext(), EVENT_FINISHED_PLAYING, params);
-          }
-      });
-    } else {
-      Uri uri = Uri.parse(url);
-      this.mediaPlayer.reset();
-      this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
-      this.mediaPlayer.prepare();
-    }
-    WritableMap params = Arguments.createMap();
-    params.putBoolean("success", true);
-    sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING, params);
-    WritableMap onFinshedLoadingURLParams = Arguments.createMap();
-    onFinshedLoadingURLParams.putBoolean("success", true);
-    onFinshedLoadingURLParams.putString("url", url);
-    sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING_URL, onFinshedLoadingURLParams);
+    prepareUrl(url);
     this.mediaPlayer.start();
+  }
+
+  @ReactMethod
+  public void loadUrl(String url) throws IOException {
+    prepareUrl(url);
   }
 
   @ReactMethod
@@ -100,7 +81,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
       this.mediaPlayer.stop();
     }
   }
-  
+
   @ReactMethod
   public void seek(float seconds) throws IllegalStateException {
     if (this.mediaPlayer != null) {
@@ -189,5 +170,33 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
     }
 
     return Uri.parse("file://" + folder + "/" + file);
+  }
+
+  private void prepareUrl(String url) throws IOException {
+    if (this.mediaPlayer == null) {
+      Uri uri = Uri.parse(url);
+      this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), uri);
+      this.mediaPlayer.setOnCompletionListener(
+        new OnCompletionListener() {
+          @Override
+          public void onCompletion(MediaPlayer arg0) {
+            WritableMap params = Arguments.createMap();
+            params.putBoolean("success", true);
+            sendEvent(getReactApplicationContext(), EVENT_FINISHED_PLAYING, params);
+          }
+      });
+    } else {
+      Uri uri = Uri.parse(url);
+      this.mediaPlayer.reset();
+      this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
+      this.mediaPlayer.prepare();
+    }
+    WritableMap params = Arguments.createMap();
+    params.putBoolean("success", true);
+    sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING, params);
+    WritableMap onFinshedLoadingURLParams = Arguments.createMap();
+    onFinshedLoadingURLParams.putBoolean("success", true);
+    onFinshedLoadingURLParams.putString("url", url);
+    sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING_URL, onFinshedLoadingURLParams);
   }
 }
