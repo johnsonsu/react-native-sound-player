@@ -15,16 +15,12 @@ static NSString *const EVENT_FINISHED_PLAYING = @"FinishedPlaying";
 
 
 RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
-    if (self.player) {
-        self.player = nil;
-    }
-    NSURL *soundURL = [NSURL URLWithString:url];
-    self.avPlayer = [[AVPlayer alloc] initWithURL:soundURL];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
-
-    [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:true]}];
-    [self sendEventWithName:EVENT_FINISHED_LOADING_URL body: @{@"success": [NSNumber numberWithBool:true], @"url": url}];
+    [self prepareUrl:url];
     [self.avPlayer play];
+}
+
+RCT_EXPORT_METHOD(loadUrl:(NSString *)url) {
+    [self prepareUrl:url];
 }
 
 RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type) {
@@ -32,16 +28,13 @@ RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type) {
     [self.player play];
 }
 
-
 RCT_EXPORT_METHOD(loadSoundFile:(NSString *)name ofType:(NSString *)type) {
     [self mountSoundFile:name ofType:type];
 }
 
-
 - (NSArray<NSString *> *)supportedEvents {
     return @[EVENT_FINISHED_PLAYING, EVENT_FINISHED_LOADING, EVENT_FINISHED_LOADING_URL, EVENT_FINISHED_LOADING_FILE];
 }
-
 
 RCT_EXPORT_METHOD(pause) {
     if (self.player != nil) {
@@ -151,6 +144,18 @@ RCT_REMAP_METHOD(getInfo,
     [self sendEventWithName:EVENT_FINISHED_LOADING_FILE body:@{@"success": [NSNumber numberWithBool:true], @"name": name, @"type": type}];
 }
 
+- (void) prepareUrl:(NSString *)url {
+    if (self.player) {
+        self.player = nil;
+    }
+    NSURL *soundURL = [NSURL URLWithString:url];
+    self.avPlayer = [[AVPlayer alloc] initWithURL:soundURL];
+    [self.player prepareToPlay];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
+
+    [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:true]}];
+    [self sendEventWithName:EVENT_FINISHED_LOADING_URL body: @{@"success": [NSNumber numberWithBool:true], @"url": url}];
+}
 
 RCT_EXPORT_MODULE();
 
