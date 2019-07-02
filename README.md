@@ -66,14 +66,14 @@ file is loaded.
 
 Play the audio from url. Supported formats are:
 
-### `playUrl(url: string)`
-
-Load the audio from the given url without playing it. You can then play the audio
-by calling `play()`. This might be useful when you find the delay between calling
-`playUrl()` and the sound actually starts playing is too much.
-
 -   [AVPlayer (iOS)](https://stackoverflow.com/questions/21879981/avfoundation-avplayer-supported-formats-no-vob-or-mpg-containers)
 -   [MediaPlayer (Android)](https://developer.android.com/guide/topics/media/media-formats)
+
+### `loadUrl(url: string)`
+
+Load the audio from the given `url` without playing it. You can then play the audio
+by calling `play()`. This might be useful when you find the delay between calling
+`playUrl()` and the sound actually starts playing is too much.
 
 ### `addEventListener(callback: (object: ResultObject) => SubscriptionObject)`
 
