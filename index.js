@@ -71,7 +71,7 @@ module.exports = {
     RNSoundPlayer.stop()
   },
 
-  seek: (seconds) => {
+  seek: (seconds: number) => {
     RNSoundPlayer.seek(seconds)
   },
 
