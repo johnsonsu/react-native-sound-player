@@ -28,10 +28,12 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
 
   private final ReactApplicationContext reactContext;
   private MediaPlayer mediaPlayer;
+  private float volume;
 
   public RNSoundPlayerModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
+    this.volume = 1;
   }
 
   @Override
@@ -42,7 +44,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void playSoundFile(String name, String type) throws IOException {
     mountSoundFile(name, type);
-    this.mediaPlayer.start();
+    this.resume();
   }
 
   @ReactMethod
@@ -53,7 +55,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void playUrl(String url) throws IOException {
     prepareUrl(url);
-    this.mediaPlayer.start();
+    this.resume();
   }
 
   @ReactMethod
@@ -71,6 +73,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void resume() throws IllegalStateException {
     if (this.mediaPlayer != null) {
+      this.mediaPlayer.setVolume(this.volume, this.volume);
       this.mediaPlayer.start();
     }
   }
@@ -91,9 +94,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void setVolume(float volume) throws IOException {
-    if (this.mediaPlayer != null) {
-      this.mediaPlayer.setVolume(volume, volume);
-    }
+    this.volume = volume;
   }
 
   @ReactMethod
