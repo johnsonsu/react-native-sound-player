@@ -10,7 +10,7 @@ const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer)
 let _finishedPlayingListener = null
 let _finishedLoadingListener = null
 
-module.exports = {
+export default {
 
   playSoundFile: (name: string, type: string) => {
     RNSoundPlayer.playSoundFile(name, type)
