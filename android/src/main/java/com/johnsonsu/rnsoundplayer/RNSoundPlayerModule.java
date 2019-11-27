@@ -44,8 +44,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void playSoundFile(String name, String type) throws IOException {
     mountSoundFile(name, type);
-    this.setVolume(this.volume);
-    this.mediaPlayer.start();
+    this.resume();
   }
 
   @ReactMethod
@@ -56,8 +55,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void playUrl(String url) throws IOException {
     prepareUrl(url);
-    this.setVolume(this.volume);
-    this.mediaPlayer.start();
+    this.resume();
   }
 
   @ReactMethod
