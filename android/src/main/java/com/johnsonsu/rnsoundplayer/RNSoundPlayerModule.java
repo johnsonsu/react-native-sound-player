@@ -2,6 +2,7 @@ package com.johnsonsu.rnsoundplayer;
 
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import java.io.File;
 
@@ -176,7 +177,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
     return Uri.parse("file://" + folder + "/" + file);
   }
 
-  private void prepareUrl(String url) throws IOException {
+  private void prepareUrl(final String url) throws IOException {
     if (this.mediaPlayer == null) {
       Uri uri = Uri.parse(url);
       this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), uri);
@@ -189,18 +190,25 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
             sendEvent(getReactApplicationContext(), EVENT_FINISHED_PLAYING, params);
           }
       });
+      this.mediaPlayer.setOnPreparedListener(
+        new OnPreparedListener() {
+          @Override
+          public void onPrepared(MediaPlayer mediaPlayer) {
+            WritableMap onFinishedLoadingURLParams = Arguments.createMap();
+            onFinishedLoadingURLParams.putBoolean("success", true);
+            onFinishedLoadingURLParams.putString("url", url);
+            sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING_URL, onFinishedLoadingURLParams);
+          }
+        }
+      );
     } else {
       Uri uri = Uri.parse(url);
       this.mediaPlayer.reset();
       this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
-      this.mediaPlayer.prepare();
+      this.mediaPlayer.prepareAsync();
     }
     WritableMap params = Arguments.createMap();
     params.putBoolean("success", true);
     sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING, params);
-    WritableMap onFinshedLoadingURLParams = Arguments.createMap();
-    onFinshedLoadingURLParams.putBoolean("success", true);
-    onFinshedLoadingURLParams.putString("url", url);
-    sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING_URL, onFinshedLoadingURLParams);
   }
 }
