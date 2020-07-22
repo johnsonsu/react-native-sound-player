@@ -140,6 +140,9 @@ RCT_REMAP_METHOD(getInfo,
     [self.player setDelegate:self];
     [self.player setNumberOfLoops:0];
     [self.player prepareToPlay];
+    [[AVAudioSession sharedInstance]
+            setCategory: AVAudioSessionCategoryPlayback
+            error: nil];
     [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:true]}];
     [self sendEventWithName:EVENT_FINISHED_LOADING_FILE body:@{@"success": [NSNumber numberWithBool:true], @"name": name, @"type": type}];
 }
