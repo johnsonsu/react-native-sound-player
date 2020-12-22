@@ -11,4 +11,5 @@
 @interface RNSoundPlayer : RCTEventEmitter <RCTBridgeModule, AVAudioPlayerDelegate>
 @property (nonatomic, strong) AVAudioPlayer *player;
 @property (nonatomic, strong) AVPlayer *avPlayer;
+@property (nonatomic, strong) int loopCount;
 @end

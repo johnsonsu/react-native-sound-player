@@ -138,7 +138,7 @@ RCT_REMAP_METHOD(getInfo,
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
     [self.player setDelegate:self];
-    [self.player setNumberOfLoops:0];
+    [self.player setNumberOfLoops:self.loopCount];
     [self.player prepareToPlay];
     [[AVAudioSession sharedInstance]
             setCategory: AVAudioSessionCategoryPlayback

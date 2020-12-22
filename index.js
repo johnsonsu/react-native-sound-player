@@ -20,6 +20,10 @@ export default {
     RNSoundPlayer.loadSoundFile(name, type)
   },
 
+  setNumberOfLoops: (loops: number) => {
+    RNSoundPlayer.setNumberOfLoops(loops);
+  },
+
   playUrl: (url: string) => {
     RNSoundPlayer.playUrl(url)
   },
