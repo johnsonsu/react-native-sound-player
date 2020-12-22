@@ -55,6 +55,11 @@ try {
 
 Play the sound file named `fileName` with file type `fileType`.
 
+
+### `playSoundFileWithDelay(fileName: string, fileType: string, delay: number)` - iOS Only
+
+Play the sound file named `fileName` with file type `fileType` after a a delay of `delay` in *seconds* from the current device time.
+
 ### `loadSoundFile(fileName: string, fileType: string)`
 
 Load the sound file named `fileName` with file type `fileType`, without playing it.
