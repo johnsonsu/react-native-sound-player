@@ -15,6 +15,10 @@ export default {
   playSoundFile: (name: string, type: string) => {
     RNSoundPlayer.playSoundFile(name, type)
   },
+  
+  playSoundFileWithDelay: (name: string, type: string, delay: number) => {
+    RNSoundPlayer.playSoundFileWithDelay(name, type, delay)
+  },
 
   loadSoundFile: (name: string, type: string) => {
     RNSoundPlayer.loadSoundFile(name, type)
