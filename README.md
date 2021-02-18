@@ -168,6 +168,11 @@ Only available on iOS. Overwrite default audio output to speaker, which forces `
 
 Set the volume of the current player. This does not change the volume of the device.
 
+
+### `setNumberOfLoops(volume: number)` - iOS Only
+
+Set the number of loops. A negative value will loop indefinitely until the `stop()` command is called.
+
 ### `getInfo() => Promise<{currentTime: number, duration: number}>`
 
 Get the `currentTime` and `duration` of the currently mounted audio media. This function returns a promise which resolves to an Object containing `currentTime` and `duration` properties.
