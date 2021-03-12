@@ -1,6 +1,20 @@
 import { EmitterSubscription } from "react-native";
 
   
+
+export type SoundPlayerEvent =
+  | 'FinishedLoading'
+  | 'FinishedPlaying'
+  | 'FinishedLoadingURL'
+  | 'FinishedLoadingFile';
+
+export type SoundPlayerEventData = {
+  success?: boolean;
+  url?: string;
+  name?: string;
+  type?: string;
+};
+
 declare interface SoundPlayerType {
     playSoundFile: (name: string, type: string) => void;
     playSoundFileWithDelay: (name: string, type: string, delay: number) => void;
@@ -12,7 +26,10 @@ declare interface SoundPlayerType {
     /** @deprecated  please use addEventListener*/
     onFinishedLoading: (callback: (success: boolean) => unknown) => void;
     /** Subscribe to any event. Returns a subscription object. Subscriptions created by this function cannot be removed by calling unmount(). You NEED to call yourSubscriptionObject.remove() when you no longer need this event listener or whenever your component unmounts. */
-    addEventListener: (eventName: 'FinishedLoading' | 'FinishedPlaying' | 'FinishedLoadingURL' | 'FinishedLoadingFile', callback: Function) => EmitterSubscription,
+    addEventListener: (
+      eventName: SoundPlayerEvent, 
+      callback: (data: SoundPlayerEventData) => void,
+    ) => EmitterSubscription,
     /** Play the loaded sound file. This function is the same as `resume`. */
     play: () => void;
     /** Pause the currently playing file. */
