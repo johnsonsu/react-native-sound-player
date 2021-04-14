@@ -104,10 +104,14 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getInfo(
       Promise promise) {
-    WritableMap map = Arguments.createMap();
-    map.putDouble("currentTime", this.mediaPlayer.getCurrentPosition() / 1000.0);
-    map.putDouble("duration", this.mediaPlayer.getDuration() / 1000.0);
-    promise.resolve(map);
+    if (this.mediaPlayer != null) {
+      WritableMap map = Arguments.createMap();
+      map.putDouble("currentTime", this.mediaPlayer.getCurrentPosition() / 1000.0);
+      map.putDouble("duration", this.mediaPlayer.getDuration() / 1000.0);
+      promise.resolve(map);
+    } else {
+      promise.reject("Media player is not instantiated!");
+    }
   }
 
   private void sendEvent(ReactApplicationContext reactContext,
