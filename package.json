@@ -1,24 +1,30 @@
 {
-	"name": "react-native-sound-player",
-	"version": "0.10.8",
-	"description": "Play or stream audio files in ReactNative on iOS/Android",
-	"main": "index.js",
-	"types": "index.d.ts",
-	"keywords": [
-		"reactnative",
-		"react-native",
-		"sound",
-		"player",
-		"audio",
-		"streaming"
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/johnsonsu/react-native-sound-player"
-	},
-	"author": {
-		"name": "Johnson Su",
-		"email": "johnsonsu@johnsonsu.com"
-	},
-	"license": "MIT"
+  "name": "react-native-sound-player",
+  "version": "0.10.9",
+  "description": "Play or stream audio files in ReactNative on iOS/Android",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "keywords": [
+    "reactnative",
+    "react-native",
+    "sound",
+    "player",
+    "audio",
+    "streaming"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnsonsu/react-native-sound-player"
+  },
+  "author": {
+    "name": "Johnson Su",
+    "email": "johnsonsu@johnsonsu.com"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": false
+  },
+  "license": "MIT"
 }
