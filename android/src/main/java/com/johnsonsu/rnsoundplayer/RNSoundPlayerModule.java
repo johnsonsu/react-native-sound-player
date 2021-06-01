@@ -104,6 +104,10 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void getInfo(
       Promise promise) {
+    if (this.mediaPlayer == null) {
+      promise.resolve(null);
+      return;
+    }
     WritableMap map = Arguments.createMap();
     map.putDouble("currentTime", this.mediaPlayer.getCurrentPosition() / 1000.0);
     map.putDouble("duration", this.mediaPlayer.getDuration() / 1000.0);

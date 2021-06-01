@@ -1,11 +1,11 @@
-declare module 'react-native-sound-player' {
-  import { EmitterSubscription } from 'react-native';
+declare module "react-native-sound-player" {
+  import { EmitterSubscription } from "react-native";
 
   export type SoundPlayerEvent =
-    | 'FinishedLoading'
-    | 'FinishedPlaying'
-    | 'FinishedLoadingURL'
-    | 'FinishedLoadingFile';
+    | "FinishedLoading"
+    | "FinishedPlaying"
+    | "FinishedLoadingURL"
+    | "FinishedLoadingFile";
 
   export type SoundPlayerEventData = {
     success?: boolean;
@@ -27,7 +27,7 @@ declare module 'react-native-sound-player' {
     /** Subscribe to any event. Returns a subscription object. Subscriptions created by this function cannot be removed by calling unmount(). You NEED to call yourSubscriptionObject.remove() when you no longer need this event listener or whenever your component unmounts. */
     addEventListener: (
       eventName: SoundPlayerEvent,
-      callback: (data: SoundPlayerEventData) => void,
+      callback: (data: SoundPlayerEventData) => void
     ) => EmitterSubscription;
     /** Play the loaded sound file. This function is the same as `resume`. */
     play: () => void;

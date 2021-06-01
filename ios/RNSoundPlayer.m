@@ -117,6 +117,7 @@ RCT_REMAP_METHOD(getInfo,
                                };
         resolve(data);
     }
+    resolve(nil);
 }
 
 - (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {

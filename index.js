@@ -1,27 +1,26 @@
 /**
  * @flow
  */
-'use strict'
+"use strict";
 
-import { NativeModules, NativeEventEmitter, Platform } from 'react-native'
-const { RNSoundPlayer } = NativeModules
+import { NativeModules, NativeEventEmitter, Platform } from "react-native";
+const { RNSoundPlayer } = NativeModules;
 
-const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer)
-let _finishedPlayingListener = null
-let _finishedLoadingListener = null
+const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer);
+let _finishedPlayingListener = null;
+let _finishedLoadingListener = null;
 
 export default {
-
   playSoundFile: (name: string, type: string) => {
-    RNSoundPlayer.playSoundFile(name, type)
+    RNSoundPlayer.playSoundFile(name, type);
   },
-  
+
   playSoundFileWithDelay: (name: string, type: string, delay: number) => {
-    RNSoundPlayer.playSoundFileWithDelay(name, type, delay)
+    RNSoundPlayer.playSoundFileWithDelay(name, type, delay);
   },
 
   loadSoundFile: (name: string, type: string) => {
-    RNSoundPlayer.loadSoundFile(name, type)
+    RNSoundPlayer.loadSoundFile(name, type);
   },
 
   setNumberOfLoops: (loops: number) => {
@@ -29,66 +28,73 @@ export default {
   },
 
   playUrl: (url: string) => {
-    RNSoundPlayer.playUrl(url)
+    RNSoundPlayer.playUrl(url);
   },
 
   loadUrl: (url: string) => {
-    RNSoundPlayer.loadUrl(url)
+    RNSoundPlayer.loadUrl(url);
   },
 
   onFinishedPlaying: (callback: (success: boolean) => any) => {
     if (_finishedPlayingListener) {
-      _finishedPlayingListener.remove()
-      _finishedPlayingListener = undefined
+      _finishedPlayingListener.remove();
+      _finishedPlayingListener = undefined;
     }
 
     _finishedPlayingListener = _soundPlayerEmitter.addListener(
-      'FinishedPlaying',
+      "FinishedPlaying",
       callback
-    )
+    );
   },
 
   onFinishedLoading: (callback: (success: boolean) => any) => {
     if (_finishedLoadingListener) {
-      _finishedLoadingListener.remove()
-      _finishedLoadingListener = undefined
+      _finishedLoadingListener.remove();
+      _finishedLoadingListener = undefined;
     }
 
     _finishedLoadingListener = _soundPlayerEmitter.addListener(
-      'FinishedLoading',
+      "FinishedLoading",
       callback
-    )
+    );
   },
 
-  addEventListener: (eventName: 'FinishedLoading' | 'FinishedPlaying' | 'FinishedLoadingURL' | 'FinishedLoadingFile', callback: Function) => _soundPlayerEmitter.addListener(eventName, callback),
+  addEventListener: (
+    eventName:
+      | "FinishedLoading"
+      | "FinishedPlaying"
+      | "FinishedLoadingURL"
+      | "FinishedLoadingFile",
+    callback: Function
+  ) => _soundPlayerEmitter.addListener(eventName, callback),
 
   play: () => {
     // play and resume has the exact same implementation natively
-    RNSoundPlayer.resume()
+    RNSoundPlayer.resume();
   },
 
   pause: () => {
-    RNSoundPlayer.pause()
+    RNSoundPlayer.pause();
   },
 
   resume: () => {
-    RNSoundPlayer.resume()
+    RNSoundPlayer.resume();
   },
 
   stop: () => {
-    RNSoundPlayer.stop()
+    RNSoundPlayer.stop();
   },
 
   seek: (seconds: number) => {
-    RNSoundPlayer.seek(seconds)
+    RNSoundPlayer.seek(seconds);
   },
 
   setVolume: (volume: number) => {
-    RNSoundPlayer.setVolume(volume)
+    RNSoundPlayer.setVolume(volume);
   },
 
   setSpeaker: (on: boolean) => {
-    if(Platform.OS === "android"){
+    if (Platform.OS === "android") {
       console.log("setSpeaker is not implement on Android");
     } else {
       RNSoundPlayer.setSpeaker(on);
@@ -99,13 +105,13 @@ export default {
 
   unmount: () => {
     if (_finishedPlayingListener) {
-      _finishedPlayingListener.remove()
-      _finishedPlayingListener = undefined
+      _finishedPlayingListener.remove();
+      _finishedPlayingListener = undefined;
     }
 
     if (_finishedLoadingListener) {
-      _finishedLoadingListener.remove()
-      _finishedLoadingListener = undefined
+      _finishedLoadingListener.remove();
+      _finishedLoadingListener = undefined;
     }
-  }
-}
+  },
+};
