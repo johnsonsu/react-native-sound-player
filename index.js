@@ -95,9 +95,17 @@ export default {
 
   setSpeaker: (on: boolean) => {
     if (Platform.OS === "android") {
-      console.log("setSpeaker is not implement on Android");
+      console.log("setSpeaker is not implemented on Android");
     } else {
       RNSoundPlayer.setSpeaker(on);
+    }
+  },
+
+  setMixAudio: (on: boolean) => {
+    if (Platform.OS === "android") {
+      console.log("setMixAudio is not implemented on Android");
+    } else {
+      RNSoundPlayer.setMixAudio(on);
     }
   },
 
