@@ -43,6 +43,8 @@ declare module "react-native-sound-player" {
     setVolume: (volume: number) => void;
     /** Only available on iOS. Overwrite default audio output to speaker, which forces playUrl() function to play from speaker. */
     setSpeaker: (on: boolean) => void;
+    /** Only available on iOS. If you set this option, your audio will be mixed with audio playing in background apps, such as the Music app. */
+    setMixAudio: (on: boolean) => void;
     /** IOS only. Set the number of loops. A negative value will loop indefinitely until the stop() command is called. */
     setNumberOfLoops: (loops: number) => void;
     /** Get the currentTime and duration of the currently mounted audio media. This function returns a promise which resolves to an Object containing currentTime and duration properties. */

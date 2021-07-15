@@ -164,6 +164,10 @@ Seek to `seconds` of the currently playing file.
 
 Only available on iOS. Overwrite default audio output to speaker, which forces `playUrl()` function to play from speaker.
 
+### `setMixAudio(on: boolean)`
+
+Only available on iOS. If you set this option, your audio will be mixed with audio playing in background apps, such as the Music app.
+
 ### `setVolume(volume: number)`
 
 Set the volume of the current player. This does not change the volume of the device.

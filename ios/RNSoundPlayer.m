@@ -89,6 +89,17 @@ RCT_EXPORT_METHOD(setSpeaker:(BOOL) on) {
     [session setActive:true error:nil];
 }
 
+RCT_EXPORT_METHOD(setMixAudio:(BOOL) on) {
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+
+    if (on) {
+        [session setCategory: AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
+    } else {
+        [session setCategory: AVAudioSessionCategoryPlayback withOptions:0 error:nil];
+    }
+    [session setActive:true error:nil];
+}
+
 RCT_EXPORT_METHOD(setVolume:(float)volume) {
     if (self.player != nil) {
         [self.player setVolume: volume];
