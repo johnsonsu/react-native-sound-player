@@ -118,6 +118,7 @@ RCT_REMAP_METHOD(getInfo,
                                @"duration": [NSNumber numberWithDouble:[self.player duration]]
                                };
         resolve(data);
+        return;
     }
     if (self.avPlayer != nil) {
         CMTime currentTime = [[self.avPlayer currentItem] currentTime];
@@ -127,6 +128,7 @@ RCT_REMAP_METHOD(getInfo,
                                @"duration": [NSNumber numberWithFloat:CMTimeGetSeconds(duration)]
                                };
         resolve(data);
+        return;
     }
     resolve(nil);
 }
