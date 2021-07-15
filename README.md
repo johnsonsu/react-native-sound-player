@@ -48,6 +48,7 @@ try {
 > Please note that the device can still go to sleep (screen goes off) while audio is playing.
 > When this happens, the audio will stop playing.
 > To prevent this, you can use something like [react-native-keep-awake](https://github.com/corbt/react-native-keep-awake).
+> Or alternatively, for iOS, you can add a Background Mode of `Audio, AirPlay, and Picture in Picture` in XCode. To do this, select your application from Targets, then click on `Signing & Capabilities` and add `Background Modes`. once the options for it appear on your `Signing & Capabilities` page select the checkbox with `Audio, AirPlay, and Picture in Picture`. This will allow the application to continue playing audio when the app is in the background and even when the device is locked. 
 
 ## Functions
 
