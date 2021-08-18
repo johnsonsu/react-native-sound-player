@@ -94,7 +94,7 @@ export default {
   },
 
   setSpeaker: (on: boolean) => {
-    if (Platform.OS === "android") {
+    if (Platform.OS === "android" || Platform.isTVOS) {
       console.log("setSpeaker is not implemented on Android");
     } else {
       RNSoundPlayer.setSpeaker(on);
