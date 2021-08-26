@@ -77,6 +77,7 @@ RCT_EXPORT_METHOD(seek:(float)seconds) {
     }
 }
 
+#if !TARGET_OS_TV
 RCT_EXPORT_METHOD(setSpeaker:(BOOL) on) {
     AVAudioSession *session = [AVAudioSession sharedInstance];
     if (on) {
@@ -88,6 +89,7 @@ RCT_EXPORT_METHOD(setSpeaker:(BOOL) on) {
     }
     [session setActive:true error:nil];
 }
+#endif
 
 RCT_EXPORT_METHOD(setMixAudio:(BOOL) on) {
     AVAudioSession *session = [AVAudioSession sharedInstance];
