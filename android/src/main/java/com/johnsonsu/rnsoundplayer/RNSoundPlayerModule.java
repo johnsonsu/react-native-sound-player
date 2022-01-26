@@ -209,7 +209,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
       Uri uri = Uri.parse(url);
       this.mediaPlayer.reset();
       this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
-      this.mediaPlayer.prepareAsync();
+      this.mediaPlayer.prepare();
     }
     WritableMap params = Arguments.createMap();
     params.putBoolean("success", true);
