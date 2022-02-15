@@ -93,7 +93,7 @@ RCT_EXPORT_METHOD(setSpeaker:(BOOL) on) {
 
 RCT_EXPORT_METHOD(setMixAudio:(BOOL) on) {
     AVAudioSession *session = [AVAudioSession sharedInstance];
-
+    
     if (on) {
         [session setCategory: AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionMixWithOthers error:nil];
     } else {
@@ -102,7 +102,7 @@ RCT_EXPORT_METHOD(setMixAudio:(BOOL) on) {
     [session setActive:true error:nil];
 }
 
-RCT_EXPORT_METHOD(setVolume:(float)volume) {
+RCT_EXPORT_METHOD(setVolume:(float) volume) {
     if (self.player != nil) {
         [self.player setVolume: volume];
     }
@@ -111,14 +111,21 @@ RCT_EXPORT_METHOD(setVolume:(float)volume) {
     }
 }
 
+RCT_EXPORT_METHOD(setNumberOfLoops:(NSInteger) loopCount) {
+    self.loopCount = loopCount;
+    if (self.player != nil) {
+        [self.player setNumberOfLoops:loopCount];
+    }
+}
+
 RCT_REMAP_METHOD(getInfo,
                  getInfoWithResolver:(RCTPromiseResolveBlock) resolve
                  rejecter:(RCTPromiseRejectBlock) reject) {
     if (self.player != nil) {
         NSDictionary *data = @{
-                               @"currentTime": [NSNumber numberWithDouble:[self.player currentTime]],
-                               @"duration": [NSNumber numberWithDouble:[self.player duration]]
-                               };
+            @"currentTime": [NSNumber numberWithDouble:[self.player currentTime]],
+            @"duration": [NSNumber numberWithDouble:[self.player duration]]
+        };
         resolve(data);
         return;
     }
@@ -126,9 +133,9 @@ RCT_REMAP_METHOD(getInfo,
         CMTime currentTime = [[self.avPlayer currentItem] currentTime];
         CMTime duration = [[[self.avPlayer currentItem] asset] duration];
         NSDictionary *data = @{
-                               @"currentTime": [NSNumber numberWithFloat:CMTimeGetSeconds(currentTime)],
-                               @"duration": [NSNumber numberWithFloat:CMTimeGetSeconds(duration)]
-                               };
+            @"currentTime": [NSNumber numberWithFloat:CMTimeGetSeconds(currentTime)],
+            @"duration": [NSNumber numberWithFloat:CMTimeGetSeconds(duration)]
+        };
         resolve(data);
         return;
     }
@@ -147,23 +154,23 @@ RCT_REMAP_METHOD(getInfo,
     if (self.avPlayer) {
         self.avPlayer = nil;
     }
-
+    
     NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:name ofType:type];
-
+    
     if (soundFilePath == nil) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         soundFilePath = [NSString stringWithFormat:@"%@.%@", [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",name]], type];
     }
-
+    
     NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
     self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
     [self.player setDelegate:self];
     [self.player setNumberOfLoops:self.loopCount];
     [self.player prepareToPlay];
     [[AVAudioSession sharedInstance]
-            setCategory: AVAudioSessionCategoryPlayback
-            error: nil];
+     setCategory: AVAudioSessionCategoryPlayback
+     error: nil];
     [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:true]}];
     [self sendEventWithName:EVENT_FINISHED_LOADING_FILE body:@{@"success": [NSNumber numberWithBool:true], @"name": name, @"type": type}];
 }
@@ -173,11 +180,11 @@ RCT_REMAP_METHOD(getInfo,
         self.player = nil;
     }
     NSURL *soundURL = [NSURL URLWithString:url];
-
+    
     if (!self.avPlayer) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     }
-
+    
     self.avPlayer = [[AVPlayer alloc] initWithURL:soundURL];
     [self.player prepareToPlay];
     [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:true]}];
