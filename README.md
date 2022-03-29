@@ -163,7 +163,7 @@ Seek to `seconds` of the currently playing file.
 
 ### `setSpeaker(on: boolean)`
 
-Only available on iOS. Overwrite default audio output to speaker, which forces `playUrl()` function to play from speaker.
+Overwrite default audio output to speaker, which forces `playUrl()` function to play from speaker.
 
 ### `setMixAudio(on: boolean)`
 
