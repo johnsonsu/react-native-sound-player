@@ -1,5 +1,7 @@
 package com.johnsonsu.rnsoundplayer;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
@@ -30,16 +32,24 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   private final ReactApplicationContext reactContext;
   private MediaPlayer mediaPlayer;
   private float volume;
+  private AudioManager audioManager;
 
   public RNSoundPlayerModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
     this.volume = 1.0f;
+    this.audioManager = (AudioManager) this.reactContext.getSystemService(Context.AUDIO_SERVICE);
   }
 
   @Override
   public String getName() {
     return "RNSoundPlayer";
+  }
+
+  @ReactMethod
+  public void setSpeaker(Boolean on) {
+    audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
+    audioManager.setSpeakerphoneOn(on);
   }
 
   @ReactMethod

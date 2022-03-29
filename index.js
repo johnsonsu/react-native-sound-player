@@ -94,11 +94,7 @@ export default {
   },
 
   setSpeaker: (on: boolean) => {
-    if (Platform.OS === "android" || Platform.isTVOS) {
-      console.log("setSpeaker is not implemented on Android or tvOS");
-    } else {
-      RNSoundPlayer.setSpeaker(on);
-    }
+    RNSoundPlayer.setSpeaker(on);
   },
 
   setMixAudio: (on: boolean) => {
