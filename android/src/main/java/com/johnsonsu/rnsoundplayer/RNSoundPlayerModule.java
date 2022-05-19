@@ -20,9 +20,10 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.LifecycleEventListener;
 
 
-public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
+public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements LifecycleEventListener {
 
   public final static String EVENT_FINISHED_PLAYING = "FinishedPlaying";
   public final static String EVENT_FINISHED_LOADING = "FinishedLoading";
@@ -50,6 +51,17 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule {
   public void setSpeaker(Boolean on) {
     audioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
     audioManager.setSpeakerphoneOn(on);
+  }
+
+  @Override
+  public void onHostResume() {}
+
+  @Override
+  public void onHostPause() {}
+
+  @Override
+  public void onHostDestroy() {
+    this.stop();
   }
 
   @ReactMethod
