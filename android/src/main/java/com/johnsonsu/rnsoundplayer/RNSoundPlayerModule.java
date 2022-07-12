@@ -136,6 +136,16 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
     promise.resolve(map);
   }
 
+  @ReactMethod
+  public void addListener(String eventName) {
+    // Set up any upstream listeners or background tasks as necessary
+  }
+
+  @ReactMethod
+  public void removeListeners(Integer count) {
+    // Remove upstream listeners, stop unnecessary background tasks
+  }
+
   private void sendEvent(ReactApplicationContext reactContext,
                        String eventName,
                        @Nullable WritableMap params) {
