@@ -88,8 +88,16 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
 
   @ReactMethod
   public void pause() throws IllegalStateException {
-    if (this.mediaPlayer != null) {
-      this.mediaPlayer.pause();
+    try {
+      if (this.mediaPlayer != null) {
+        if(this.mediaPlayer.isPlaying()) {
+          this.mediaPlayer.pause();
+        } else {
+          this.mediaPlayer.start();
+        }
+      }
+    } catch (Exception ex) {
+      ex.printStackTrace();
     }
   }
 
