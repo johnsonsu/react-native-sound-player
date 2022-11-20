@@ -92,8 +92,6 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
       if (this.mediaPlayer != null) {
         if(this.mediaPlayer.isPlaying()) {
           this.mediaPlayer.pause();
-        } else {
-          this.mediaPlayer.start();
         }
       }
     } catch (Exception ex) {
