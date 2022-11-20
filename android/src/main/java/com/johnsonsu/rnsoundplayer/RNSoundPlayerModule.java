@@ -214,34 +214,38 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
   }
 
   private void prepareUrl(final String url) throws IOException {
-    if (this.mediaPlayer == null) {
-      Uri uri = Uri.parse(url);
-      this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), uri);
-      this.mediaPlayer.setOnCompletionListener(
-        new OnCompletionListener() {
-          @Override
-          public void onCompletion(MediaPlayer arg0) {
-            WritableMap params = Arguments.createMap();
-            params.putBoolean("success", true);
-            sendEvent(getReactApplicationContext(), EVENT_FINISHED_PLAYING, params);
-          }
-      });
-      this.mediaPlayer.setOnPreparedListener(
-        new OnPreparedListener() {
-          @Override
-          public void onPrepared(MediaPlayer mediaPlayer) {
-            WritableMap onFinishedLoadingURLParams = Arguments.createMap();
-            onFinishedLoadingURLParams.putBoolean("success", true);
-            onFinishedLoadingURLParams.putString("url", url);
-            sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING_URL, onFinishedLoadingURLParams);
-          }
-        }
-      );
-    } else {
-      Uri uri = Uri.parse(url);
-      this.mediaPlayer.reset();
-      this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
-      this.mediaPlayer.prepare();
+    try {
+      if (this.mediaPlayer == null) {
+        Uri uri = Uri.parse(url);
+        this.mediaPlayer = MediaPlayer.create(getCurrentActivity(), uri);
+        this.mediaPlayer.setOnCompletionListener(
+                new OnCompletionListener() {
+                  @Override
+                  public void onCompletion(MediaPlayer arg0) {
+                    WritableMap params = Arguments.createMap();
+                    params.putBoolean("success", true);
+                    sendEvent(getReactApplicationContext(), EVENT_FINISHED_PLAYING, params);
+                  }
+                });
+        this.mediaPlayer.setOnPreparedListener(
+                new OnPreparedListener() {
+                  @Override
+                  public void onPrepared(MediaPlayer mediaPlayer) {
+                    WritableMap onFinishedLoadingURLParams = Arguments.createMap();
+                    onFinishedLoadingURLParams.putBoolean("success", true);
+                    onFinishedLoadingURLParams.putString("url", url);
+                    sendEvent(getReactApplicationContext(), EVENT_FINISHED_LOADING_URL, onFinishedLoadingURLParams);
+                  }
+                }
+        );
+      } else {
+        Uri uri = Uri.parse(url);
+        this.mediaPlayer.reset();
+        this.mediaPlayer.setDataSource(getCurrentActivity(), uri);
+        this.mediaPlayer.prepare();
+      }
+    } catch (Exception ex) {
+      ex.printStackTrace();
     }
     WritableMap params = Arguments.createMap();
     params.putBoolean("success", true);
