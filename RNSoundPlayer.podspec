@@ -13,6 +13,6 @@ Pod::Spec.new do |s|
   s.source         = { :git => "https://github.com/johnsonsu/react-native-sound-player.git", :tag => s.version }
   s.source_files   = 'ios/**/*.{h,m}'
   s.preserve_paths = "package.json", "LICENSE"
-  s.dependency 'React'
+  s.dependency 'React-Core'
 
 end
