@@ -42,8 +42,8 @@ export default {
     }
 
     _finishedPlayingListener = _soundPlayerEmitter.addListener(
-      "FinishedPlaying",
-      callback
+        "FinishedPlaying",
+        callback
     );
   },
 
@@ -61,6 +61,7 @@ export default {
 
   addEventListener: (
     eventName:
+      | "OnSetupError"
       | "FinishedLoading"
       | "FinishedPlaying"
       | "FinishedLoadingURL"

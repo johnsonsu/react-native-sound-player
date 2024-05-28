@@ -2,6 +2,7 @@ declare module "react-native-sound-player" {
   import { EmitterSubscription } from "react-native";
 
   export type SoundPlayerEvent =
+    | "OnSetupError"
     | "FinishedLoading"
     | "FinishedPlaying"
     | "FinishedLoadingURL"
