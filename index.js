@@ -4,6 +4,7 @@
 "use strict";
 
 import { NativeModules, NativeEventEmitter, Platform } from "react-native";
+import resolveAsset from 'react-native/Libraries/Image/resolveAssetSource';
 const { RNSoundPlayer } = NativeModules;
 
 const _soundPlayerEmitter = new NativeEventEmitter(RNSoundPlayer);
@@ -33,6 +34,14 @@ export default {
 
   loadUrl: (url: string) => {
     RNSoundPlayer.loadUrl(url);
+  },
+  
+  playAsset: (asset: number) => {
+    RNSoundPlayer.playUrl(resolveAsset(asset).uri);  
+  },
+  
+  loadAsset: (asset: number) => {
+    RNSoundPlayer.loadUrl(resolveAsset(asset).uri);  
   },
 
   onFinishedPlaying: (callback: (success: boolean) => any) => {

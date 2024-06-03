@@ -29,6 +29,7 @@ For RN >= 0.60 you can skip this step.
 
 -   On iOS, drag and drop sound file into project in Xcode. Remember to check **"Copy items if needed"** option and **"Add to targets"**.
 -   On Android, put sound files in `{project_root}/android/app/src/main/res/raw/`. Just create the folder if it doesn't exist.
+-   When using playAsset() you only need to copy the file to the projects root directory or a subfolder like assets
 
 2. Import the library and call the `playSoundFile(fileName, fileType)` function:
 
@@ -40,6 +41,8 @@ try {
     SoundPlayer.playSoundFile('tone', 'mp3')
     // or play from url
     SoundPlayer.playUrl('https://example.com/music.mp3')
+	// or play file from folder
+	SoundPlayer.playAsset(require('./assets/tone.mp3'))
 } catch (e) {
     console.log(`cannot play the sound file`, e)
 }
@@ -82,6 +85,16 @@ Play the audio from url. Supported formats are:
 Load the audio from the given `url` without playing it. You can then play the audio
 by calling `play()`. This might be useful when you find the delay between calling
 `playUrl()` and the sound actually starts playing is too much.
+
+### `playAsset(asset: number)`
+
+Play the audio from an asset, to get the asset number use `require('./assets/tone.mp3')`.
+
+Supported formats see `playUrl()` function.
+
+### `loadAsset(asset: number)`
+
+Load the audio from an asset like above but without playing it. You can then play the audio by calling `play()`. This might be useful when you find the delay between calling `playAsset()` and the sound actually starts playing is too much.
 
 ### `addEventListener(callback: (object: ResultObject) => SubscriptionObject)`
 
