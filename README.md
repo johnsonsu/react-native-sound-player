@@ -41,8 +41,8 @@ try {
     SoundPlayer.playSoundFile('tone', 'mp3')
     // or play from url
     SoundPlayer.playUrl('https://example.com/music.mp3')
-	// or play file from folder
-	SoundPlayer.playAsset(require('./assets/tone.mp3'))
+    // or play file from folder
+    SoundPlayer.playAsset(require('./assets/tone.mp3'))
 } catch (e) {
     console.log(`cannot play the sound file`, e)
 }
