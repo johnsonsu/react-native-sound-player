@@ -8,6 +8,9 @@
 #import <AVFoundation/AVFoundation.h>
 
 @implementation RNSoundPlayer
+{
+    bool hasListeners;
+}
 
 static NSString *const EVENT_SETUP_ERROR = @"OnSetupError";
 static NSString *const EVENT_FINISHED_LOADING = @"FinishedLoading";
@@ -41,6 +44,14 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents {
     return @[EVENT_FINISHED_PLAYING, EVENT_FINISHED_LOADING, EVENT_FINISHED_LOADING_URL, EVENT_FINISHED_LOADING_FILE, EVENT_SETUP_ERROR];
+}
+
+-(void)startObserving {
+    hasListeners = YES;
+}
+
+-(void)stopObserving {
+    hasListeners = NO;
 }
 
 RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
@@ -180,11 +191,15 @@ RCT_REMAP_METHOD(getInfo,
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    [self sendEventWithName:EVENT_FINISHED_PLAYING body:@{@"success": [NSNumber numberWithBool:flag]}];
+    if (hasListeners) {
+        [self sendEventWithName:EVENT_FINISHED_PLAYING body:@{@"success": [NSNumber numberWithBool:flag]}];
+    }
 }
 
 - (void)itemDidFinishPlaying:(NSNotification *)notification {
-    [self sendEventWithName:EVENT_FINISHED_PLAYING body:@{@"success": [NSNumber numberWithBool:YES]}];
+    if (hasListeners) {
+        [self sendEventWithName:EVENT_FINISHED_PLAYING body:@{@"success": [NSNumber numberWithBool:YES]}];
+    }
 }
 
 - (void)mountSoundFile:(NSString *)name ofType:(NSString *)type {
@@ -215,8 +230,10 @@ RCT_REMAP_METHOD(getInfo,
         [self sendErrorEvent:error];
         return;
     }
-    [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:YES]}];
-    [self sendEventWithName:EVENT_FINISHED_LOADING_FILE body:@{@"success": [NSNumber numberWithBool:YES], @"name": name, @"type": type}];
+    if (hasListeners) {
+        [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:YES]}];
+        [self sendEventWithName:EVENT_FINISHED_LOADING_FILE body:@{@"success": [NSNumber numberWithBool:YES], @"name": name, @"type": type}];
+    }
 }
 
 - (void)prepareUrl:(NSString *)url {
@@ -229,7 +246,7 @@ RCT_REMAP_METHOD(getInfo,
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if (object == self.avPlayer.currentItem && [keyPath isEqualToString:@"status"]) {
+    if (object == self.avPlayer.currentItem && [keyPath isEqualToString:@"status"] && hasListeners) {
         if (self.avPlayer.currentItem.status == AVPlayerItemStatusReadyToPlay) {
             [self sendEventWithName:EVENT_FINISHED_LOADING body:@{@"success": [NSNumber numberWithBool:YES]}];
             NSURL *url = [(AVURLAsset *)self.avPlayer.currentItem.asset URL];
@@ -241,7 +258,9 @@ RCT_REMAP_METHOD(getInfo,
 }
 
 - (void)sendErrorEvent:(NSError *)error {
-    [self sendEventWithName:EVENT_SETUP_ERROR body:@{@"error": [error localizedDescription]}];
+	if (hasListeners) {
+	    [self sendEventWithName:EVENT_SETUP_ERROR body:@{@"error": [error localizedDescription]}];
+	}
 }
 
 @end
