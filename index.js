@@ -36,8 +36,12 @@ export default {
     RNSoundPlayer.loadUrl(url);
   },
   
-  playAsset: (asset: number) => {
-    RNSoundPlayer.playUrl(resolveAsset(asset).uri);  
+  playAsset: async (asset: number) => {
+    if (!(__DEV__) && Platform.OS === "android") {
+      RNSoundPlayer.playSoundFile(resolveAsset(asset).uri, '');
+    } else {
+      RNSoundPlayer.playUrl(resolveAsset(asset).uri); 
+    } 
   },
   
   loadAsset: (asset: number) => {
