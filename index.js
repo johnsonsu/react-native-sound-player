@@ -45,7 +45,11 @@ export default {
   },
   
   loadAsset: (asset: number) => {
-    RNSoundPlayer.loadUrl(resolveAsset(asset).uri);  
+    if (!(__DEV__) && Platform.OS === "android") {
+      RNSoundPlayer.loadSoundFile(resolveAsset(asset).uri, '');
+    } else {
+      RNSoundPlayer.loadUrl(resolveAsset(asset).uri); 
+    }
   },
 
   onFinishedPlaying: (callback: (success: boolean) => any) => {
