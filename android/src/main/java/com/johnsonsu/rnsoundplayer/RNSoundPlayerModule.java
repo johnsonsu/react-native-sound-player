@@ -190,7 +190,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
 
   private Uri getUriFromFile(String name, String type) {
     String folder = getReactApplicationContext().getFilesDir().getAbsolutePath();
-    String file = name + "." + type;
+    String file = (!type.isEmpty()) ? name + "." + type : name;
 
     // http://blog.weston-fl.com/android-mediaplayer-prepare-throws-status0x1-error1-2147483648
     // this helps avoid a common error state when mounting the file
