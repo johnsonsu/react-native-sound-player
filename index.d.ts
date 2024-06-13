@@ -21,6 +21,8 @@ declare module "react-native-sound-player" {
     loadSoundFile: (name: string, type: string) => void;
     playUrl: (url: string) => void;
     loadUrl: (url: string) => void;
+    playAsset: (asset: number) => void;
+    loadAsset: (asset: number) => void;
     /** @deprecated  please use addEventListener*/
     onFinishedPlaying: (callback: (success: boolean) => unknown) => void;
     /** @deprecated  please use addEventListener*/
