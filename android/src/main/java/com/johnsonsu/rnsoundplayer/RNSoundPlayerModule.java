@@ -136,12 +136,12 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
   @ReactMethod
   public void setNumberOfLoops(int noOfLooping){
     // The expected boolean value
-    Boolean boolValue;
+    Boolean looping;
     if (noOfLooping == 0) {
-      boolValue = false;
+      looping = false;
     }
     else {
-      boolValue = true;
+      looping = true;
     }
 
     if (this.mediaPlayer != null) {
