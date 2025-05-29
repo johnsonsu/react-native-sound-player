@@ -51,7 +51,7 @@ declare module "react-native-sound-player" {
     /** iOS: 0 means to play the sound once, a positive number specifies the number of times to return to the start and play again, a negative number indicates an indefinite loop. Android: 0 means to play the sound once, other numbers indicate an indefinite loop. */
     setNumberOfLoops: (loops: number) => void;
     /** Get the currentTime and duration of the currently mounted audio media. This function returns a promise which resolves to an Object containing currentTime and duration properties. */
-    getInfo: () => Promise<{ currentTime: number; duration: number }>;
+    getInfo: () => Promise<{ currentTime: number; duration: number; isPlaying: boolean }>;
     /** @deprecated Please use addEventListener and remove your own listener by calling yourSubscriptionObject.remove(). */
     unmount: () => void;
   }

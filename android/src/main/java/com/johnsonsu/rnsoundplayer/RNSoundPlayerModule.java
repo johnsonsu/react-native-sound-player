@@ -159,6 +159,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
     WritableMap map = Arguments.createMap();
     map.putDouble("currentTime", this.mediaPlayer.getCurrentPosition() / 1000.0);
     map.putDouble("duration", this.mediaPlayer.getDuration() / 1000.0);
+    map.putBoolean("isPlaying", this.mediaPlayer.isPlaying());
     promise.resolve(map);
   }
 

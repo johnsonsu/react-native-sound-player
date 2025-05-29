@@ -174,15 +174,24 @@ RCT_REMAP_METHOD(getInfo,
     if (self.player != nil) {
         NSDictionary *data = @{
             @"currentTime": [NSNumber numberWithDouble:[self.player currentTime]],
-            @"duration": [NSNumber numberWithDouble:[self.player duration]]
+            @"duration": [NSNumber numberWithDouble:[self.player duration]],
+            @"isPlaying": [NSNumber numberWithBool:[self.player isPlaying]]
         };
         resolve(data);
     } else if (self.avPlayer != nil) {
         CMTime currentTime = [[self.avPlayer currentItem] currentTime];
         CMTime duration = [[[self.avPlayer currentItem] asset] duration];
+        BOOL isPlaying = NO;
+        if (@available(iOS 10.0, *)) {
+            isPlaying = (self.avPlayer.timeControlStatus == AVPlayerTimeControlStatusPlaying);
+        } else {
+            isPlaying = (self.avPlayer.rate != 0.0f);
+        }
+
         NSDictionary *data = @{
             @"currentTime": [NSNumber numberWithFloat:CMTimeGetSeconds(currentTime)],
-            @"duration": [NSNumber numberWithFloat:CMTimeGetSeconds(duration)]
+            @"duration": [NSNumber numberWithFloat:CMTimeGetSeconds(duration)],
+            @"isPlaying": [NSNumber numberWithBool:isPlaying]
         };
         resolve(data);
     } else {
