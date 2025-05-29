@@ -191,9 +191,9 @@ Set the volume of the current player. This does not change the volume of the dev
 
 **Android**: 0 will play the sound once. Any other number will loop indefinitely until the `stop()` command is called.
 
-### `getInfo() => Promise<{currentTime: number, duration: number}>`
+### `getInfo() => Promise<{currentTime: number, duration: number, isPlaying: boolean}>`
 
-Get the `currentTime` and `duration` of the currently mounted audio media. This function returns a promise which resolves to an Object containing `currentTime` and `duration` properties.
+Get the `currentTime`, `duration` and `isPlaying` status of the currently mounted audio media. This function returns a promise which resolves to an Object containing `currentTime`, `duration` and `isPlaying` properties.
 
 ```javascript
 // Example
@@ -210,7 +210,7 @@ Get the `currentTime` and `duration` of the currently mounted audio media. This 
   async getInfo() { // You need the keyword `async`
     try {
       const info = await SoundPlayer.getInfo() // Also, you need to await this because it is async
-      console.log('getInfo', info) // {duration: 12.416, currentTime: 7.691}
+      console.log('getInfo', info) // {duration: 12.416, currentTime: 7.691, isPlaying: true}
     } catch (e) {
       console.log('There is no song playing', e)
     }
