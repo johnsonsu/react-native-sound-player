@@ -1,5 +1,7 @@
 # react-native-sound-player
 
+> ⚠️ **This package is no longer actively maintained.** For new projects, I recommend using other libraries such as [react-native-track-player](https://github.com/doublesymmetry/react-native-track-player) which provides more comprehensive audio playback features and active community support.
+
 Play audio files, stream audio from URL, using ReactNative.
 
 ## Installation
